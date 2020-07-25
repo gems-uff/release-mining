@@ -13,6 +13,7 @@ pygit2 = "*"
 python-dateutil = "*"
 pyyaml = "*"
 pygithub = "*"
+scipy = "*"
 
 [requires]
 python_version = "3.8"
