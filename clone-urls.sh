@@ -1,100 +1,100 @@
-[[ -d freeCodeCamp/freeCodeCamp.git ]] || git clone --mirror --bare git://github.com/freeCodeCamp/freeCodeCamp.git freeCodeCamp/freeCodeCamp.git
-[[ -d facebook/react.git ]] || git clone --mirror --bare git://github.com/facebook/react.git facebook/react.git
-[[ -d twbs/bootstrap.git ]] || git clone --mirror --bare git://github.com/twbs/bootstrap.git twbs/bootstrap.git
-[[ -d facebook/create-react-app.git ]] || git clone --mirror --bare git://github.com/facebook/create-react-app.git facebook/create-react-app.git
-[[ -d axios/axios.git ]] || git clone --mirror --bare git://github.com/axios/axios.git axios/axios.git
-[[ -d nodejs/node.git ]] || git clone --mirror --bare git://github.com/nodejs/node.git nodejs/node.git
-[[ -d FortAwesome/Font-Awesome.git ]] || git clone --mirror --bare git://github.com/FortAwesome/Font-Awesome.git FortAwesome/Font-Awesome.git
-[[ -d angular/angular.js.git ]] || git clone --mirror --bare git://github.com/angular/angular.js.git angular/angular.js.git
-[[ -d mrdoob/three.js.git ]] || git clone --mirror --bare git://github.com/mrdoob/three.js.git mrdoob/three.js.git
-[[ -d puppeteer/puppeteer.git ]] || git clone --mirror --bare git://github.com/puppeteer/puppeteer.git puppeteer/puppeteer.git
-[[ -d microsoft/vscode.git ]] || git clone --mirror --bare git://github.com/microsoft/vscode.git microsoft/vscode.git
-[[ -d microsoft/TypeScript.git ]] || git clone --mirror --bare git://github.com/microsoft/TypeScript.git microsoft/TypeScript.git
-[[ -d angular/angular.git ]] || git clone --mirror --bare git://github.com/angular/angular.git angular/angular.git
-[[ -d ant-design/ant-design.git ]] || git clone --mirror --bare git://github.com/ant-design/ant-design.git ant-design/ant-design.git
-[[ -d reduxjs/redux.git ]] || git clone --mirror --bare git://github.com/reduxjs/redux.git reduxjs/redux.git
-[[ -d storybookjs/storybook.git ]] || git clone --mirror --bare git://github.com/storybookjs/storybook.git storybookjs/storybook.git
-[[ -d denoland/deno.git ]] || git clone --mirror --bare git://github.com/denoland/deno.git denoland/deno.git
-[[ -d ionic-team/ionic.git ]] || git clone --mirror --bare git://github.com/ionic-team/ionic.git ionic-team/ionic.git
-[[ -d grafana/grafana.git ]] || git clone --mirror --bare git://github.com/grafana/grafana.git grafana/grafana.git
-[[ -d cdr/code-server.git ]] || git clone --mirror --bare git://github.com/cdr/code-server.git cdr/code-server.git
-[[ -d elastic/elasticsearch.git ]] || git clone --mirror --bare git://github.com/elastic/elasticsearch.git elastic/elasticsearch.git
-[[ -d spring-projects/spring-boot.git ]] || git clone --mirror --bare git://github.com/spring-projects/spring-boot.git spring-projects/spring-boot.git
-[[ -d square/okhttp.git ]] || git clone --mirror --bare git://github.com/square/okhttp.git square/okhttp.git
-[[ -d google/guava.git ]] || git clone --mirror --bare git://github.com/google/guava.git google/guava.git
-[[ -d square/retrofit.git ]] || git clone --mirror --bare git://github.com/square/retrofit.git square/retrofit.git
-[[ -d spring-projects/spring-framework.git ]] || git clone --mirror --bare git://github.com/spring-projects/spring-framework.git spring-projects/spring-framework.git
-[[ -d apache/dubbo.git ]] || git clone --mirror --bare git://github.com/apache/dubbo.git apache/dubbo.git
-[[ -d PhilJay/MPAndroidChart.git ]] || git clone --mirror --bare git://github.com/PhilJay/MPAndroidChart.git PhilJay/MPAndroidChart.git
-[[ -d bumptech/glide.git ]] || git clone --mirror --bare git://github.com/bumptech/glide.git bumptech/glide.git
-[[ -d airbnb/lottie-android.git ]] || git clone --mirror --bare git://github.com/airbnb/lottie-android.git airbnb/lottie-android.git
-[[ -d ytdl-org/youtube-dl.git ]] || git clone --mirror --bare git://github.com/ytdl-org/youtube-dl.git ytdl-org/youtube-dl.git
-[[ -d nvbn/thefuck.git ]] || git clone --mirror --bare git://github.com/nvbn/thefuck.git nvbn/thefuck.git
-[[ -d pallets/flask.git ]] || git clone --mirror --bare git://github.com/pallets/flask.git pallets/flask.git
-[[ -d keras-team/keras.git ]] || git clone --mirror --bare git://github.com/keras-team/keras.git keras-team/keras.git
-[[ -d django/django.git ]] || git clone --mirror --bare git://github.com/django/django.git django/django.git
-[[ -d jakubroztocil/httpie.git ]] || git clone --mirror --bare git://github.com/jakubroztocil/httpie.git jakubroztocil/httpie.git
-[[ -d psf/requests.git ]] || git clone --mirror --bare git://github.com/psf/requests.git psf/requests.git
-[[ -d ansible/ansible.git ]] || git clone --mirror --bare git://github.com/ansible/ansible.git ansible/ansible.git
-[[ -d scikit-learn/scikit-learn.git ]] || git clone --mirror --bare git://github.com/scikit-learn/scikit-learn.git scikit-learn/scikit-learn.git
-[[ -d scrapy/scrapy.git ]] || git clone --mirror --bare git://github.com/scrapy/scrapy.git scrapy/scrapy.git
-[[ -d laravel/laravel.git ]] || git clone --mirror --bare git://github.com/laravel/laravel.git laravel/laravel.git
-[[ -d blueimp/jQuery-File-Upload.git ]] || git clone --mirror --bare git://github.com/blueimp/jQuery-File-Upload.git blueimp/jQuery-File-Upload.git
-[[ -d fzaninotto/Faker.git ]] || git clone --mirror --bare git://github.com/fzaninotto/Faker.git fzaninotto/Faker.git
-[[ -d symfony/symfony.git ]] || git clone --mirror --bare git://github.com/symfony/symfony.git symfony/symfony.git
-[[ -d composer/composer.git ]] || git clone --mirror --bare git://github.com/composer/composer.git composer/composer.git
-[[ -d guzzle/guzzle.git ]] || git clone --mirror --bare git://github.com/guzzle/guzzle.git guzzle/guzzle.git
-[[ -d bcit-ci/CodeIgniter.git ]] || git clone --mirror --bare git://github.com/bcit-ci/CodeIgniter.git bcit-ci/CodeIgniter.git
-[[ -d Seldaek/monolog.git ]] || git clone --mirror --bare git://github.com/Seldaek/monolog.git Seldaek/monolog.git
-[[ -d sebastianbergmann/phpunit.git ]] || git clone --mirror --bare git://github.com/sebastianbergmann/phpunit.git sebastianbergmann/phpunit.git
-[[ -d PHPMailer/PHPMailer.git ]] || git clone --mirror --bare git://github.com/PHPMailer/PHPMailer.git PHPMailer/PHPMailer.git
-[[ -d tensorflow/tensorflow.git ]] || git clone --mirror --bare git://github.com/tensorflow/tensorflow.git tensorflow/tensorflow.git
-[[ -d electron/electron.git ]] || git clone --mirror --bare git://github.com/electron/electron.git electron/electron.git
-[[ -d microsoft/terminal.git ]] || git clone --mirror --bare git://github.com/microsoft/terminal.git microsoft/terminal.git
-[[ -d apple/swift.git ]] || git clone --mirror --bare git://github.com/apple/swift.git apple/swift.git
-[[ -d bitcoin/bitcoin.git ]] || git clone --mirror --bare git://github.com/bitcoin/bitcoin.git bitcoin/bitcoin.git
-[[ -d opencv/opencv.git ]] || git clone --mirror --bare git://github.com/opencv/opencv.git opencv/opencv.git
-[[ -d protocolbuffers/protobuf.git ]] || git clone --mirror --bare git://github.com/protocolbuffers/protobuf.git protocolbuffers/protobuf.git
-[[ -d nwjs/nw.js.git ]] || git clone --mirror --bare git://github.com/nwjs/nw.js.git nwjs/nw.js.git
-[[ -d x64dbg/x64dbg.git ]] || git clone --mirror --bare git://github.com/x64dbg/x64dbg.git x64dbg/x64dbg.git
-[[ -d pytorch/pytorch.git ]] || git clone --mirror --bare git://github.com/pytorch/pytorch.git pytorch/pytorch.git
-[[ -d shadowsocks/shadowsocks-windows.git ]] || git clone --mirror --bare git://github.com/shadowsocks/shadowsocks-windows.git shadowsocks/shadowsocks-windows.git
-[[ -d CodeHubApp/CodeHub.git ]] || git clone --mirror --bare git://github.com/CodeHubApp/CodeHub.git CodeHubApp/CodeHub.git
-[[ -d PowerShell/PowerShell.git ]] || git clone --mirror --bare git://github.com/PowerShell/PowerShell.git PowerShell/PowerShell.git
-[[ -d Wox-launcher/Wox.git ]] || git clone --mirror --bare git://github.com/Wox-launcher/Wox.git Wox-launcher/Wox.git
-[[ -d aspnet/AspNetCore.git ]] || git clone --mirror --bare git://github.com/aspnet/AspNetCore.git aspnet/AspNetCore.git
-[[ -d mxgmn/WaveFunctionCollapse.git ]] || git clone --mirror --bare git://github.com/mxgmn/WaveFunctionCollapse.git mxgmn/WaveFunctionCollapse.git
-[[ -d 0xd4d/dnSpy.git ]] || git clone --mirror --bare git://github.com/0xd4d/dnSpy.git 0xd4d/dnSpy.git
-[[ -d dotnet/coreclr.git ]] || git clone --mirror --bare git://github.com/dotnet/coreclr.git dotnet/coreclr.git
-[[ -d dotnet/roslyn.git ]] || git clone --mirror --bare git://github.com/dotnet/roslyn.git dotnet/roslyn.git
-[[ -d dotnet-architecture/eShopOnContainers.git ]] || git clone --mirror --bare git://github.com/dotnet-architecture/eShopOnContainers.git dotnet-architecture/eShopOnContainers.git
-[[ -d netdata/netdata.git ]] || git clone --mirror --bare git://github.com/netdata/netdata.git netdata/netdata.git
-[[ -d antirez/redis.git ]] || git clone --mirror --bare git://github.com/antirez/redis.git antirez/redis.git
-[[ -d git/git.git ]] || git clone --mirror --bare git://github.com/git/git.git git/git.git
-[[ -d php/php-src.git ]] || git clone --mirror --bare git://github.com/php/php-src.git php/php-src.git
-[[ -d bilibili/ijkplayer.git ]] || git clone --mirror --bare git://github.com/bilibili/ijkplayer.git bilibili/ijkplayer.git
-[[ -d wg/wrk.git ]] || git clone --mirror --bare git://github.com/wg/wrk.git wg/wrk.git
-[[ -d Genymobile/scrcpy.git ]] || git clone --mirror --bare git://github.com/Genymobile/scrcpy.git Genymobile/scrcpy.git
-[[ -d ggreer/the_silver_searcher.git ]] || git clone --mirror --bare git://github.com/ggreer/the_silver_searcher.git ggreer/the_silver_searcher.git
-[[ -d FFmpeg/FFmpeg.git ]] || git clone --mirror --bare git://github.com/FFmpeg/FFmpeg.git FFmpeg/FFmpeg.git
-[[ -d tmux/tmux.git ]] || git clone --mirror --bare git://github.com/tmux/tmux.git tmux/tmux.git
-[[ -d rails/rails.git ]] || git clone --mirror --bare git://github.com/rails/rails.git rails/rails.git
-[[ -d jekyll/jekyll.git ]] || git clone --mirror --bare git://github.com/jekyll/jekyll.git jekyll/jekyll.git
-[[ -d discourse/discourse.git ]] || git clone --mirror --bare git://github.com/discourse/discourse.git discourse/discourse.git
-[[ -d fastlane/fastlane.git ]] || git clone --mirror --bare git://github.com/fastlane/fastlane.git fastlane/fastlane.git
-[[ -d huginn/huginn.git ]] || git clone --mirror --bare git://github.com/huginn/huginn.git huginn/huginn.git
-[[ -d gitlabhq/gitlabhq.git ]] || git clone --mirror --bare git://github.com/gitlabhq/gitlabhq.git gitlabhq/gitlabhq.git
-[[ -d freeCodeCamp/devdocs.git ]] || git clone --mirror --bare git://github.com/freeCodeCamp/devdocs.git freeCodeCamp/devdocs.git
-[[ -d plataformatec/devise.git ]] || git clone --mirror --bare git://github.com/plataformatec/devise.git plataformatec/devise.git
-[[ -d Homebrew/brew.git ]] || git clone --mirror --bare git://github.com/Homebrew/brew.git Homebrew/brew.git
-[[ -d tootsuite/mastodon.git ]] || git clone --mirror --bare git://github.com/tootsuite/mastodon.git tootsuite/mastodon.git
-[[ -d golang/go.git ]] || git clone --mirror --bare git://github.com/golang/go.git golang/go.git
-[[ -d kubernetes/kubernetes.git ]] || git clone --mirror --bare git://github.com/kubernetes/kubernetes.git kubernetes/kubernetes.git
-[[ -d moby/moby.git ]] || git clone --mirror --bare git://github.com/moby/moby.git moby/moby.git
-[[ -d gohugoio/hugo.git ]] || git clone --mirror --bare git://github.com/gohugoio/hugo.git gohugoio/hugo.git
-[[ -d gin-gonic/gin.git ]] || git clone --mirror --bare git://github.com/gin-gonic/gin.git gin-gonic/gin.git
-[[ -d gogs/gogs.git ]] || git clone --mirror --bare git://github.com/gogs/gogs.git gogs/gogs.git
-[[ -d fatedier/frp.git ]] || git clone --mirror --bare git://github.com/fatedier/frp.git fatedier/frp.git
-[[ -d syncthing/syncthing.git ]] || git clone --mirror --bare git://github.com/syncthing/syncthing.git syncthing/syncthing.git
-[[ -d etcd-io/etcd.git ]] || git clone --mirror --bare git://github.com/etcd-io/etcd.git etcd-io/etcd.git
-[[ -d prometheus/prometheus.git ]] || git clone --mirror --bare git://github.com/prometheus/prometheus.git prometheus/prometheus.git
+git clone git://github.com/twbs/bootstrap.git twbs/bootstrap
+git clone git://github.com/d3/d3.git d3/d3
+git clone git://github.com/nodejs/node.git nodejs/node
+git clone git://github.com/FortAwesome/Font-Awesome.git FortAwesome/Font-Awesome
+git clone git://github.com/puppeteer/puppeteer.git puppeteer/puppeteer
+git clone git://github.com/mrdoob/three.js.git mrdoob/three.js
+git clone git://github.com/mui-org/material-ui.git mui-org/material-ui
+git clone git://github.com/chartjs/Chart.js.git chartjs/Chart.js
+git clone git://github.com/typicode/json-server.git typicode/json-server
+git clone git://github.com/h5bp/html5-boilerplate.git h5bp/html5-boilerplate
+git clone git://github.com/microsoft/vscode.git microsoft/vscode
+git clone git://github.com/microsoft/TypeScript.git microsoft/TypeScript
+git clone git://github.com/angular/angular.git angular/angular
+git clone git://github.com/ant-design/ant-design.git ant-design/ant-design
+git clone git://github.com/reduxjs/redux.git reduxjs/redux
+git clone git://github.com/storybookjs/storybook.git storybookjs/storybook
+git clone git://github.com/denoland/deno.git denoland/deno
+git clone git://github.com/ionic-team/ionic.git ionic-team/ionic
+git clone git://github.com/grafana/grafana.git grafana/grafana
+git clone git://github.com/zeit/hyper.git zeit/hyper
+git clone git://github.com/elastic/elasticsearch.git elastic/elasticsearch
+git clone git://github.com/spring-projects/spring-boot.git spring-projects/spring-boot
+git clone git://github.com/square/okhttp.git square/okhttp
+git clone git://github.com/google/guava.git google/guava
+git clone git://github.com/spring-projects/spring-framework.git spring-projects/spring-framework
+git clone git://github.com/square/retrofit.git square/retrofit
+git clone git://github.com/apache/dubbo.git apache/dubbo
+git clone git://github.com/PhilJay/MPAndroidChart.git PhilJay/MPAndroidChart
+git clone git://github.com/bumptech/glide.git bumptech/glide
+git clone git://github.com/airbnb/lottie-android.git airbnb/lottie-android
+git clone git://github.com/ytdl-org/youtube-dl.git ytdl-org/youtube-dl
+git clone git://github.com/nvbn/thefuck.git nvbn/thefuck
+git clone git://github.com/pallets/flask.git pallets/flask
+git clone git://github.com/django/django.git django/django
+git clone git://github.com/keras-team/keras.git keras-team/keras
+git clone git://github.com/jakubroztocil/httpie.git jakubroztocil/httpie
+git clone git://github.com/ansible/ansible.git ansible/ansible
+git clone git://github.com/psf/requests.git psf/requests
+git clone git://github.com/scrapy/scrapy.git scrapy/scrapy
+git clone git://github.com/minimaxir/big-list-of-naughty-strings.git minimaxir/big-list-of-naughty-strings
+git clone git://github.com/laravel/laravel.git laravel/laravel
+git clone git://github.com/blueimp/jQuery-File-Upload.git blueimp/jQuery-File-Upload
+git clone git://github.com/fzaninotto/Faker.git fzaninotto/Faker
+git clone git://github.com/symfony/symfony.git symfony/symfony
+git clone git://github.com/composer/composer.git composer/composer
+git clone git://github.com/guzzle/guzzle.git guzzle/guzzle
+git clone git://github.com/bcit-ci/CodeIgniter.git bcit-ci/CodeIgniter
+git clone git://github.com/Seldaek/monolog.git Seldaek/monolog
+git clone git://github.com/sebastianbergmann/phpunit.git sebastianbergmann/phpunit
+git clone git://github.com/PHPMailer/PHPMailer.git PHPMailer/PHPMailer
+git clone git://github.com/tensorflow/tensorflow.git tensorflow/tensorflow
+git clone git://github.com/electron/electron.git electron/electron
+git clone git://github.com/microsoft/terminal.git microsoft/terminal
+git clone git://github.com/apple/swift.git apple/swift
+git clone git://github.com/bitcoin/bitcoin.git bitcoin/bitcoin
+git clone git://github.com/opencv/opencv.git opencv/opencv
+git clone git://github.com/protocolbuffers/protobuf.git protocolbuffers/protobuf
+git clone git://github.com/pytorch/pytorch.git pytorch/pytorch
+git clone git://github.com/x64dbg/x64dbg.git x64dbg/x64dbg
+git clone git://github.com/tesseract-ocr/tesseract.git tesseract-ocr/tesseract
+git clone git://github.com/shadowsocks/shadowsocks-windows.git shadowsocks/shadowsocks-windows
+git clone git://github.com/PowerShell/PowerShell.git PowerShell/PowerShell
+git clone git://github.com/dotnet/aspnetcore.git dotnet/aspnetcore
+git clone git://github.com/Wox-launcher/Wox.git Wox-launcher/Wox
+git clone git://github.com/mxgmn/WaveFunctionCollapse.git mxgmn/WaveFunctionCollapse
+git clone git://github.com/0xd4d/dnSpy.git 0xd4d/dnSpy
+git clone git://github.com/dotnet-architecture/eShopOnContainers.git dotnet-architecture/eShopOnContainers
+git clone git://github.com/dotnet/roslyn.git dotnet/roslyn
+git clone git://github.com/StackExchange/Dapper.git StackExchange/Dapper
+git clone git://github.com/ShareX/ShareX.git ShareX/ShareX
+git clone git://github.com/netdata/netdata.git netdata/netdata
+git clone git://github.com/antirez/redis.git antirez/redis
+git clone git://github.com/git/git.git git/git
+git clone git://github.com/php/php-src.git php/php-src
+git clone git://github.com/Genymobile/scrcpy.git Genymobile/scrcpy
+git clone git://github.com/ggreer/the_silver_searcher.git ggreer/the_silver_searcher
+git clone git://github.com/FFmpeg/FFmpeg.git FFmpeg/FFmpeg
+git clone git://github.com/tmux/tmux.git tmux/tmux
+git clone git://github.com/obsproject/obs-studio.git obsproject/obs-studio
+git clone git://github.com/curl/curl.git curl/curl
+git clone git://github.com/rails/rails.git rails/rails
+git clone git://github.com/jekyll/jekyll.git jekyll/jekyll
+git clone git://github.com/discourse/discourse.git discourse/discourse
+git clone git://github.com/fastlane/fastlane.git fastlane/fastlane
+git clone git://github.com/huginn/huginn.git huginn/huginn
+git clone git://github.com/gitlabhq/gitlabhq.git gitlabhq/gitlabhq
+git clone git://github.com/Homebrew/brew.git Homebrew/brew
+git clone git://github.com/heartcombo/devise.git heartcombo/devise
+git clone git://github.com/tootsuite/mastodon.git tootsuite/mastodon
+git clone git://github.com/rapid7/metasploit-framework.git rapid7/metasploit-framework
+git clone git://github.com/golang/go.git golang/go
+git clone git://github.com/kubernetes/kubernetes.git kubernetes/kubernetes
+git clone git://github.com/moby/moby.git moby/moby
+git clone git://github.com/gohugoio/hugo.git gohugoio/hugo
+git clone git://github.com/gin-gonic/gin.git gin-gonic/gin
+git clone git://github.com/gogs/gogs.git gogs/gogs
+git clone git://github.com/fatedier/frp.git fatedier/frp
+git clone git://github.com/syncthing/syncthing.git syncthing/syncthing
+git clone git://github.com/etcd-io/etcd.git etcd-io/etcd
+git clone git://github.com/prometheus/prometheus.git prometheus/prometheus

@@ -12,6 +12,7 @@ pandas = "*"
 matplotlib = "*"
 pygit2 = "*"
 python-dateutil = "*"
+pyyaml = "*"
 
 [requires]
 python_version = "3.8"
