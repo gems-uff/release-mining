@@ -15,6 +15,7 @@ python-dateutil = "*"
 pyyaml = "*"
 scipy = "*"
 sklearn = "*"
+ipympl = "*"
 
 [requires]
 python_version = "3.8"
