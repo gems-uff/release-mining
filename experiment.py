@@ -3,6 +3,7 @@ import re
 import os
 import sys
 import multiprocessing as mp
+import time
 
 releasy_module = os.path.abspath(os.path.join('..','..','dev','releasy'))
 sys.path.insert(0, releasy_module)
@@ -23,8 +24,8 @@ suffix_exception_catalog = {
 
 def analyze_project(name, lang, suffix_exception_catalog):
     try:
+        start = time.time()
         path = os.path.abspath(os.path.join('..','..','repos',name))
-        print(f"Processing {name}")
         if name in suffix_exception_catalog:
             suffix_exception = suffix_exception_catalog[name]
         else:
@@ -49,8 +50,8 @@ def analyze_project(name, lang, suffix_exception_catalog):
         time_release_set = time_miner.mine_commits()
         range_release_set = range_miner.mine_commits()
         
-        print("")
         stats = []
+        releases = pd.DataFrame()
         for release in version_release_set:
             path_commits = set(path_release_set[release.name].commits)
             range_commits = set(range_release_set[release.name].commits)
@@ -68,7 +69,7 @@ def analyze_project(name, lang, suffix_exception_catalog):
                 "prefix": release.name.prefix,
                 "suffix": release.name.suffix,
                 "lang": lang,
-                "head": release.head,
+                "head": str(release.head.id),
                 "time": release.time,
                 "commits": len(path_commits),
                 "base_releases": path_base_releases,
@@ -83,8 +84,9 @@ def analyze_project(name, lang, suffix_exception_catalog):
                 "time_fpos": len(time_commits - path_commits),
                 "time_fneg": len(path_commits - time_commits)
             })
-        
-        return stats
+            releases = releases.append(pd.DataFrame(stats))
+        print(f"{time.time() - start:10} - {name}") 
+        return releases
     except Exception as e:
         print(f" {name} - error: {e}")
 
@@ -93,8 +95,9 @@ pool = mp.Pool(processes=10, maxtasksperchild=10)
 results = [pool.apply_async(analyze_project, args=(project.Index, project.lang, suffix_exception_catalog)) for project in projects.itertuples()]
 data = [p.get() for p in results]
 releases = pd.DataFrame(data)
+for d in data:
+    releases = releases.concat(d)
 
-releases['head'] = releases['head'].apply(lambda commit: commit.id)
 releases.commits = pd.to_numeric(releases.commits)
 releases.time = pd.to_datetime(releases.time, utc=True)
 releases.range_commits = pd.to_numeric(releases.range_commits)
