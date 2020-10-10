@@ -2,6 +2,7 @@ import pandas as pd
 import re
 import os
 import sys
+import multiprocessing as mp
 
 releasy_module = os.path.abspath(os.path.join('..','..','dev','releasy'))
 sys.path.insert(0, releasy_module)
@@ -13,11 +14,6 @@ from releasy.miner import TagReleaseMiner, PathCommitMiner, RangeCommitMiner, Ti
 projects = pd.read_pickle('projects.zip')
 
 releases = pd.DataFrame()
-#columns=[
-#    "project","name", "lang","head", "time", "commits", "base_releases",
-#    "range_commits", "range_base_releases", "range_tpos", "range_fpos","range_fneg",
-#    "time_commits", "time_base_releases", "time_tpos", "time_fpos","time_fneg"])
-    
 suffix_exception_catalog = {
     "spring-projects/spring-boot": ".RELEASE",
     "spring-projects/spring-framework": ".RELEASE",
@@ -25,14 +21,12 @@ suffix_exception_catalog = {
     "godotengine/godot": "-stable",
 }
 
-count = 0
-for i,project in enumerate(projects.itertuples()):
-    path = os.path.abspath(os.path.join('..','..','repos',project.Index))
-    
+def analyze_project(name, lang, suffix_exception_catalog):
     try:
-        print(f"{i+1:3} {project.Index}")
-        if project.Index in suffix_exception_catalog:
-            suffix_exception = suffix_exception_catalog[project.Index]
+        path = os.path.abspath(os.path.join('..','..','repos',name))
+        print(f"Processing {name}")
+        if name in suffix_exception_catalog:
+            suffix_exception = suffix_exception_catalog[name]
         else:
             suffix_exception = None
         
@@ -51,11 +45,8 @@ for i,project in enumerate(projects.itertuples()):
         range_miner = RangeCommitMiner(vcs, version_release_set)
         time_miner = TimeCommitMiner(vcs, version_release_set)
     
-        print(f" - parsing by path")
         path_release_set = path_miner.mine_commits()
-        print(f" - parsing by time")
         time_release_set = time_miner.mine_commits()
-        print(f" - parsing by range")
         range_release_set = range_miner.mine_commits()
         
         print("")
@@ -71,12 +62,12 @@ for i,project in enumerate(projects.itertuples()):
             time_base_releases = [release.name.value for release in (time_release_set[release.name].base_releases or [])]
 
             stats.append({
-                "project": project.Index,
+                "project": name,
                 "name": release.name.value,
                 "version": release.name.version,
                 "prefix": release.name.prefix,
                 "suffix": release.name.suffix,
-                "lang": project.lang,
+                "lang": lang,
                 "head": release.head,
                 "time": release.time,
                 "commits": len(path_commits),
@@ -93,13 +84,15 @@ for i,project in enumerate(projects.itertuples()):
                 "time_fneg": len(path_commits - time_commits)
             })
         
-        releases = releases.append(pd.DataFrame(stats))
+        return stats
     except Exception as e:
-        print(f" - error: {e}")
-    
-releases_bkp = releases.copy()  
+        print(f" {name} - error: {e}")
 
-releases = releases_bkp.copy()
+
+pool = mp.Pool(processes=10, maxtasksperchild=10)
+results = [pool.apply_async(analyze_project, args=(project.Index, project.lang, suffix_exception_catalog)) for project in projects.itertuples()]
+data = [p.get() for p in results]
+releases = pd.DataFrame(data)
 
 releases['head'] = releases['head'].apply(lambda commit: commit.id)
 releases.commits = pd.to_numeric(releases.commits)
