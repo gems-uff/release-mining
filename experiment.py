@@ -94,9 +94,7 @@ def analyze_project(name, lang, suffix_exception_catalog):
 pool = mp.Pool(processes=10, maxtasksperchild=10)
 results = [pool.apply_async(analyze_project, args=(project.Index, project.lang, suffix_exception_catalog)) for project in projects.itertuples()]
 data = [p.get() for p in results]
-releases = pd.DataFrame(data)
-for d in data:
-    releases = releases.concat(d)
+releases = pd.concat(data)
 
 releases.commits = pd.to_numeric(releases.commits)
 releases.time = pd.to_datetime(releases.time, utc=True)
