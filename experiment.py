@@ -51,7 +51,6 @@ def analyze_project(name, lang, suffix_exception_catalog):
         range_release_set = range_miner.mine_commits()
         
         stats = []
-        releases = pd.DataFrame()
         for release in version_release_set:
             path_commits = set(path_release_set[release.name].commits)
             range_commits = set(range_release_set[release.name].commits)
@@ -84,7 +83,7 @@ def analyze_project(name, lang, suffix_exception_catalog):
                 "time_fpos": len(time_commits - path_commits),
                 "time_fneg": len(path_commits - time_commits)
             })
-            releases = releases.append(pd.DataFrame(stats))
+        releases = pd.DataFrame(stats)
         print(f"{time.time() - start:10} - {name}") 
         return releases
     except Exception as e:
