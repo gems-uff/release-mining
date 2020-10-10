@@ -12,10 +12,11 @@ from releasy.miner import TagReleaseMiner, PathCommitMiner, RangeCommitMiner, Ti
 
 projects = pd.read_pickle('projects.zip')
 
-releases = pd.DataFrame(columns=[
-    "project","name", "lang","head", "time", "commits", "base_releases",
-    "range_commits", "range_base_releases", "range_tpos", "range_fpos","range_fneg",
-    "time_commits", "time_base_releases", "time_tpos", "time_fpos","time_fneg"])
+releases = pd.DataFrame()
+#columns=[
+#    "project","name", "lang","head", "time", "commits", "base_releases",
+#    "range_commits", "range_base_releases", "range_tpos", "range_fpos","range_fneg",
+#    "time_commits", "time_base_releases", "time_tpos", "time_fpos","time_fneg"])
     
 suffix_exception_catalog = {
     "spring-projects/spring-boot": ".RELEASE",
@@ -26,12 +27,12 @@ suffix_exception_catalog = {
 
 count = 0
 for i,project in enumerate(projects.itertuples()):
-    path = os.path.abspath(os.path.join('..','..','..','repos2',project.name))
+    path = os.path.abspath(os.path.join('..','..','repos',project.Index))
     
     try:
-        print(f"{i+1:3} {project.name}")
-        if project.name in suffix_exception_catalog:
-            suffix_exception = suffix_exception_catalog[project.name]
+        print(f"{i+1:3} {project.Index}")
+        if project.Index in suffix_exception_catalog:
+            suffix_exception = suffix_exception_catalog[project.Index]
         else:
             suffix_exception = None
         
@@ -63,14 +64,18 @@ for i,project in enumerate(projects.itertuples()):
             path_commits = set(path_release_set[release.name].commits)
             range_commits = set(range_release_set[release.name].commits)
             time_commits = set(time_release_set[release.name].commits)
+           
             
-            path_base_releases = [release.name.value for release in path_release_set[release.name].base_releases]
-            range_base_releases = [release.name.value for release in range_release_set[release.name].base_releases]
-            time_base_releases = [release.name.value for release in time_release_set[release.name].base_releases]
+            path_base_releases = [release.name.value for release in (path_release_set[release.name].base_releases or [])]
+            range_base_releases = [release.name.value for release in (range_release_set[release.name].base_releases or [])]
+            time_base_releases = [release.name.value for release in (time_release_set[release.name].base_releases or [])]
 
             stats.append({
-                "project": project.name,
+                "project": project.Index,
                 "name": release.name.value,
+                "version": release.name.version,
+                "prefix": release.name.prefix,
+                "suffix": release.name.suffix,
                 "lang": project.lang,
                 "head": release.head,
                 "time": release.time,
