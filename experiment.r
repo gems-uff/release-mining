@@ -1,3 +1,4 @@
+install.packages("tidyverse")
 install.packages("reshape2")
 library("effsize")
 library("reshape2")
@@ -11,7 +12,9 @@ releases %>% ggplot(aes(x=commits)) +
   theme_bw(base_size = 18)
   
 
-releases %>% filter(commits == 0) %>% count()
+releases %>% select(commits) %>% sum()
+
+releases %>% select(merges) %>% sum()
 
 
 # Precision

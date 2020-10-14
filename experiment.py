@@ -73,6 +73,7 @@ def analyze_project(name, lang, suffix_exception_catalog):
                 "commits": len(path_commits),
                 "merges": len(path_release_set[release.name].merges),
                 "base_releases": path_base_releases,
+                "base_releases_qnt": len(path_base_releases),
                 "range_commits": len(range_commits),
                 "range_base_releases": range_base_releases,
                 "range_tpos": len(path_commits & range_commits),
