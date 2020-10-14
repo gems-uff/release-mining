@@ -1,5 +1,6 @@
-library(ggplot2)
-library("reshape2")
+library(tidyverse)
+
+# library("reshape2")
 
 projects <- read.csv("projects.csv")
 projects$project <- projects$name
@@ -9,15 +10,10 @@ releases <- read.csv("releases.csv")
 # Number of commits and releases
 releases %>% summarize(commits=sum(commits), releases=n())
 
-# Number of releases
-
-
-project_summary <- releases %>% group_by(project) %>% summarize(lang=first(lang), commits=sum(commits), releases=n())
-project_summary %>% names()
-
-project_summary <- project_summary %>% 
-  merge(projects %>% select(project,stars), by="project") %>% 
-  select(project, lang, commits, releases, stars)
+project_summary <- releases %>% 
+  group_by(project) %>% 
+  summarize(lang=first(lang), commits=sum(commits), releases=n()) %>%
+  merge(projects %>% select(project,stars), by="project")
 
 project_summary %>% select(project, lang, stars, releases, commits) %>% melt() %>%
   ggplot(aes(x=lang)) +
