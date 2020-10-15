@@ -1,16 +1,18 @@
 
 library(tidyverse)
 
-
 releases <- read.csv("releases.csv")
 
 releases_bproj <- releases %>% group_by(project) %>% 
   summarise(merges_mean = mean(merges)/mean(commits), releases.total=n())
 
+releases_bproj <- releases %>% group_by(project) %>% 
+  summarise(merges_mean = merges/commits, min = min(merges), max = max(merges), releases.total=n())
+
 releases_few_merges_bproj <- releases %>% 
-  inner_join(releases_bproj, by="project") %>%
-  group_by(project) %>% 
-  filter((merges/commits) < merges_mean) %>%
+  #inner_join(releases_bproj, by="project") %>%
+  filter(merges < 1) %>%
+  group_by(project) %>%
   summarise(time_precision = mean(time_precision),
             time_recall = mean(time_recall),
             range_precision = mean(range_precision),
@@ -18,9 +20,9 @@ releases_few_merges_bproj <- releases %>%
             releases=n())
 
 releases_many_merges_bproj <- releases %>% 
-  inner_join(releases_bproj, by="project") %>%
+#  inner_join(releases_bproj, by="project") %>%
+  filter(merges >= 1) %>%
   group_by(project) %>% 
-  filter((merges/commits) >= merges_mean) %>%
   summarise(time_precision = mean(time_precision),
             time_recall = mean(time_recall),
             range_precision = mean(range_precision),
