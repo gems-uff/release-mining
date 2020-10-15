@@ -30,7 +30,7 @@ release_exception_catalog = {
     ], 
     "facebook/react-native": [
         "0.60.2"
-    ], 
+    ],
     "nodejs/node": [
         "heads/tags/v0.5.6"
     ], 
@@ -42,7 +42,8 @@ release_exception_catalog = {
     ], 
     "grafana/grafana": [
         "6.1.6",
-        "7.0.0"
+        "7.0.0",
+        "7.2.1"
     ], 
     "vercel/hyper": [
         "v0.7.0",
@@ -64,16 +65,33 @@ release_exception_catalog = {
         "3.0.1"
     ], 
     "laravel/framework": [
-        "5.3"
+        "5.3",
+        "v4.0.8" # clone
     ], 
     "dotnet/efcore": [
         "rel/1.0.1",
         "release/2.2",
-        "release/3.0"
+        "release/3.0",
+        "v2.1.10", #clone
+        "v2.1.13", #clone
+        "v2.1.16", #clone
+        "v2.1.17", #clone
+        "v2.1.19", #clone
+        "v2.1.20", #clone
+        "v2.1.21", #clone
+        "v2.2.7",  #clone
+        "v2.2.8"  #clone
     ], 
     "aspnetboilerplate/aspnetboilerplate": [
-        "v.5.1.0"
+        "v.5.1.0",
+        "v0.7.3.0", # clone
+        "v5.10.1",  # clone
+        "v5.12"     # clone
     ], 
+    "SignalR/SignalR": [
+        "v0.3.5",
+        "0.5"
+    ],
     "AutoMapper/AutoMapper": [
         "3.3.1"
     ], 
@@ -108,6 +126,59 @@ release_exception_catalog = {
     ], 
     "hashicorp/terraform": [
         "0.7.7"
+    ],
+    "rclone/rclone": [
+        "v1.46" #clone
+    ],
+    "istio/istio": [
+        "1.0.7", #clone
+        "1.1.2"  #clone
+    ],
+    "XX-net/XX-Net": [
+    	"1.14.5", #clone
+        "1.15.0"  #clone
+    ],
+    "alibaba/fastjson": [
+        "1.2.37" #clone
+    ],
+    "briannesbitt/Carbon": [
+        "1.26.1", #clone
+        "1.38.3"  #clone
+    ],
+    "vuetifyjs/vuetify": [
+        "v0.8.3" #clone
+    ],
+    "microsoft/TypeScript": [
+        "v1.5.4" #clone
+    ],
+    "psf/requests": [
+        "v2.16.3	" #clone
+    ],
+    "huggingface/transformers": [
+        "v0.2.0" #clone
+    ],
+    "Wox-launcher/Wox": [
+        "v1.0.0.185" #clone
+    ],
+    "jellyfin/jellyfin": [
+        "v10.0.1" #clone
+    ],
+    "radareorg/radare2": [
+        "1.0" #clone
+    ],
+    "v2ray/v2ray-core ": [
+        "v0.14.2", #clone
+        "v2.19.2", #clone
+        "v2.19.6", #clone
+        "v2.36.3", #clone
+        "v2.40.2", #clone
+        "v2.41",   #clone
+        "v3.11.3", #clone
+        "v3.18",   #clone
+        "v3.22",   #clone
+        "v3.25	", #clone
+        "v3.38",   #clone
+        "v3.46.4"  #clone
     ]
 }
 
