@@ -107,7 +107,7 @@ release_exception_catalog = {
         "v1.4.3"
     ], 
     "hashicorp/terraform": [
-        "0.7.7
+        "0.7.7"
     ]
 }
 
