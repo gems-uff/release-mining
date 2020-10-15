@@ -231,6 +231,7 @@ def analyze_project(name, lang, suffix_exception_catalog):
                     "project": name,
                     "name": release.name.value,
                     "version": release.name.version,
+                    "semantic_version": release.name.semantic_version,
                     "prefix": release.name.prefix,
                     "suffix": release.name.suffix,
                     "lang": lang,
