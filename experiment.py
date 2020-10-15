@@ -65,9 +65,11 @@ release_exception_catalog = {
         "3.0.1",
         "v0.2.0" #clone
     ], 
-    "laravel/framework": [
-        "5.3",
+    "laravel/laravel": [
         "v4.0.8" # clone
+    ], 
+    "laravel/framework": [
+        "5.3"
     ], 
     "dotnet/efcore": [
         "rel/1.0.1",
@@ -153,7 +155,7 @@ release_exception_catalog = {
         "v1.5.4" #clone
     ],
     "psf/requests": [
-        "v2.16.3	" #clone
+        "v2.16.3" #clone
     ],
     "Wox-launcher/Wox": [
         "v1.0.0.185" #clone
@@ -164,7 +166,7 @@ release_exception_catalog = {
     "radareorg/radare2": [
         "1.0" #clone
     ],
-    "v2ray/v2ray-core ": [
+    "v2ray/v2ray-core": [
         "v0.14.2", #clone
         "v2.19.2", #clone
         "v2.19.6", #clone
