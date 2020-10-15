@@ -5,22 +5,22 @@ library(tidyverse)
 releases <- read.csv("releases.csv")
 
 releases_bproj <- releases_bproj <- releases %>% group_by(project) %>% 
-  summarise(commits_mean = mean(commits), releases.total=n())
+  summarise(mean = mean(base_releases_qnt), releases.total=n())
 
-releases_few_commits_bproj <- releases %>% 
+releases_few_bases_bproj <- releases %>% 
   inner_join(releases_bproj, by="project") %>%
   group_by(project) %>% 
-  filter(commits < commits_mean) %>%
+  filter(base_releases_qnt < mean) %>%
   summarise(time_precision = mean(time_precision),
             time_recall = mean(time_recall),
             range_precision = mean(range_precision),
             range_recall = mean(range_recall),
             releases=n())
 
-releases_many_commits_bproj <- releases %>% 
+releases_many_bases_bproj <- releases %>% 
   inner_join(releases_bproj, by="project") %>%
   group_by(project) %>% 
-  filter(commits >= commits_mean) %>%
+  filter(base_releases_qnt >= mean) %>%
   summarise(time_precision = mean(time_precision),
             time_recall = mean(time_recall),
             range_precision = mean(range_precision),
@@ -28,8 +28,8 @@ releases_many_commits_bproj <- releases %>%
             releases=n())
 
 releases_bproj <- releases_bproj %>% 
-  inner_join(releases_few_commits_bproj, by="project") %>%
-  inner_join(releases_many_commits_bproj, by="project", suffix=c(".few",".many")) 
+  inner_join(releases_few_bases_bproj, by="project") %>%
+  inner_join(releases_many_bases_bproj, by="project", suffix=c(".few",".many")) 
 
 
 # H2_0 Test
@@ -47,7 +47,7 @@ wilcox.test(releases_bproj$range_recall.few, releases_bproj$range_recall.many)
 
 
 releases_bproj %>% 
-  select(-commits_mean, -releases.total, -releases.few, -releases.many) %>%
+  select(-mean, -releases.total, -releases.few, -releases.many) %>%
   melt() %>%
   mutate(strategy = case_when(grepl("time", variable) ~ "time", TRUE ~ "range"),
          group = case_when(grepl("few", variable) ~ "few", TRUE ~ "many")) %>%
@@ -60,7 +60,7 @@ releases_bproj %>%
 
 
 releases_bproj %>% 
-  select(-commits_mean, -releases.total, -releases.few, -releases.many) %>%
+  select(-mean, -releases.total, -releases.few, -releases.many) %>%
   melt() %>%
   mutate(strategy = case_when(grepl("time", variable) ~ "time", TRUE ~ "range"),
          group = case_when(grepl("few", variable) ~ "few", TRUE ~ "many")) %>%
