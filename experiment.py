@@ -62,7 +62,8 @@ release_exception_catalog = {
         "0.1.2",
         "0.5.0",
         "1.0",
-        "3.0.1"
+        "3.0.1",
+        "v0.2.0" #clone
     ], 
     "laravel/framework": [
         "5.3",
@@ -153,9 +154,6 @@ release_exception_catalog = {
     ],
     "psf/requests": [
         "v2.16.3	" #clone
-    ],
-    "huggingface/transformers": [
-        "v0.2.0" #clone
     ],
     "Wox-launcher/Wox": [
         "v1.0.0.185" #clone
