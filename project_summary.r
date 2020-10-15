@@ -1,6 +1,5 @@
 library(tidyverse)
-
-# library("reshape2")
+library("reshape2")
 
 projects <- read.csv("projects.csv")
 projects$project <- projects$name
@@ -24,4 +23,7 @@ project_summary %>% select(project, lang, stars, releases, commits) %>% melt() %
   theme_bw(base_size=18) +
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
   ggsave("../paper/figs/summary.png", width = 8, height = 6)
-           
+
+projects %>% count()
+releases %>% count()           
+releases %>% select(commits) %>% sum()
