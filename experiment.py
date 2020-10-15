@@ -22,59 +22,94 @@ suffix_exception_catalog = {
     "godotengine/godot": "^-stable$",
 }
 
-release_exception_catalog = {}
-release_exception_catalog["facebook/react@15.3.1"] = True
-release_exception_catalog["facebook/react@15.3.2"] = True
-release_exception_catalog["facebook/react@16.1.0"] = True
-release_exception_catalog["facebook/react@native 0.60.2"] = True
-release_exception_catalog["nodejs/node@heads/tags/v0.5.6"] = True
-release_exception_catalog["vercel/next@js v2.4.2"] = True
-release_exception_catalog["ionic-team@ionic-framework 1.0.0"] = True
-release_exception_catalog["grafana/grafana@6.1.6"] = True
-release_exception_catalog["grafana/grafana@7.0.0"] = True
-release_exception_catalog["vercel/hyper@v0.7.0"] = True
-release_exception_catalog["vercel/hyper@v0.7.1"] = True
-release_exception_catalog["nestjs/nest@6.3.1"] = True
-release_exception_catalog["apache/dubbo@2.7.6"] = True
-release_exception_catalog["psf/requests@2.0"] = True
-release_exception_catalog["huggingface/transformers@0.1.2"] = True
-release_exception_catalog["huggingface/transformers@0.5.0"] = True
-release_exception_catalog["huggingface/transformers@1.0"] = True
-release_exception_catalog["huggingface/transformers@3.0.1"] = True
-release_exception_catalog["laravel/framework@5.3"] = True
-release_exception_catalog["dotnet/efcore@rel/1.0.1"] = True
-release_exception_catalog["dotnet/efcore@release/2.2"] = True
-release_exception_catalog["dotnet/efcore@release/3.0"] = True
-release_exception_catalog["aspnetboilerplate/aspnetboilerplate@v.5.1.0"] = True
-release_exception_catalog["AutoMapper/AutoMapper@3.3.1"] = True
-release_exception_catalog["sinatra/sinatra@1.0"] = True
-release_exception_catalog["sinatra/sinatra@v1.1.0"] = True
-release_exception_catalog["sinatra/sinatra@v1.1.1"] = True
-release_exception_catalog["sinatra/sinatra@v1.1.2"] = True
-release_exception_catalog["sinatra/sinatra@v1.1.3"] = True
-release_exception_catalog["sinatra/sinatra@v1.1.4"] = True
-release_exception_catalog["sinatra/sinatra@v1.2.0"] = True
-release_exception_catalog["sinatra/sinatra@v1.2.1"] = True
-release_exception_catalog["sinatra/sinatra@v1.2.2"] = True
-release_exception_catalog["sinatra/sinatra@v1.2.3"] = True
-release_exception_catalog["sinatra/sinatra@v1.2.4"] = True
-release_exception_catalog["sinatra/sinatra@v1.2.5"] = True
-release_exception_catalog["sinatra/sinatra@v1.2.6"] = True
-release_exception_catalog["sinatra/sinatra@v1.2.7"] = True
-release_exception_catalog["sinatra/sinatra@v1.2.8"] = True
-release_exception_catalog["sinatra/sinatra@v1.2.9"] = True
-release_exception_catalog["sinatra/sinatra@v1.3.0"] = True
-release_exception_catalog["sinatra/sinatra@v1.3.1"] = True
-release_exception_catalog["sinatra/sinatra@v1.3.2"] = True
-release_exception_catalog["sinatra/sinatra@v1.3.3"] = True
-release_exception_catalog["sinatra/sinatra@v1.3.4"] = True
-release_exception_catalog["sinatra/sinatra@v1.3.5"] = True
-release_exception_catalog["sinatra/sinatra@v1.3.6"] = True
-release_exception_catalog["sinatra/sinatra@v1.4.0"] = True
-release_exception_catalog["sinatra/sinatra@v1.4.1"] = True
-release_exception_catalog["sinatra/sinatra@v1.4.2"] = True
-release_exception_catalog["sinatra/sinatra@v1.4.3"] = True
-release_exception_catalog["hashicorp/terraform@0.7."] = True
+release_exception_catalog = {
+    "facebook/react": [
+        "15.3.1",
+        "15.3.2",
+        "16.1.0"
+    ], 
+    "facebook/react-native": [
+        "0.60.2"
+    ], 
+    "nodejs/node": [
+        "heads/tags/v0.5.6"
+    ], 
+    "vercel/next.js": [
+        "v2.4.2"
+    ], 
+    "ionic-team/ionic-framework": [
+        "1.0.0"
+    ], 
+    "grafana/grafana": [
+        "6.1.6",
+        "7.0.0"
+    ], 
+    "vercel/hyper": [
+        "v0.7.0",
+        "v0.7.1"
+    ], 
+    "nestjs/nest": [
+        "6.3.1"
+    ], 
+    "apache/dubbo": [
+        "2.7.6"
+    ], 
+    "psf/requests": [
+        "2.0"
+    ], 
+    "huggingface/transformers": [
+        "0.1.2",
+        "0.5.0",
+        "1.0",
+        "3.0.1"
+    ], 
+    "laravel/framework": [
+        "5.3"
+    ], 
+    "dotnet/efcore": [
+        "rel/1.0.1",
+        "release/2.2",
+        "release/3.0"
+    ], 
+    "aspnetboilerplate/aspnetboilerplate": [
+        "v.5.1.0"
+    ], 
+    "AutoMapper/AutoMapper": [
+        "3.3.1"
+    ], 
+    "sinatra/sinatra": [
+        "1.0",
+        "v1.1.0",
+        "v1.1.1",
+        "v1.1.2",
+        "v1.1.3",
+        "v1.1.4",
+        "v1.2.0",
+        "v1.2.1",
+        "v1.2.2",
+        "v1.2.3",
+        "v1.2.4",
+        "v1.2.5",
+        "v1.2.6",
+        "v1.2.7",
+        "v1.2.8",
+        "v1.2.9",
+        "v1.3.0",
+        "v1.3.1",
+        "v1.3.2",
+        "v1.3.3",
+        "v1.3.4",
+        "v1.3.5",
+        "v1.3.6",
+        "v1.4.0",
+        "v1.4.1",
+        "v1.4.2",
+        "v1.4.3"
+    ], 
+    "hashicorp/terraform": [
+        "0.7.7
+    ]
+}
 
 def analyze_project(name, lang, suffix_exception_catalog):
     try:
@@ -84,9 +119,14 @@ def analyze_project(name, lang, suffix_exception_catalog):
             suffix_exception = suffix_exception_catalog[name]
         else:
             suffix_exception = None
+        if name in release_exception_catalog:
+            release_exceptions = release_exception_catalog[name]
+        else:
+            release_exceptions = None
         
         vcs = GitVcs(path)
-        release_matcher = VersionWoPreReleaseMatcher(suffix_exception=suffix_exception)
+        release_matcher = VersionWoPreReleaseMatcher(suffix_exception=suffix_exception, 
+                                                     release_exceptions=release_exceptions)
         time_release_sorter = TimeReleaseSorter()
         version_release_sorter = VersionReleaseSorter()
 
