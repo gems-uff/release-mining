@@ -176,7 +176,7 @@ release_exception_catalog = {
         "v3.11.3", #clone
         "v3.18",   #clone
         "v3.22",   #clone
-        "v3.25	", #clone
+        "v3.25", #clone
         "v3.38",   #clone
         "v3.46.4"  #clone
     ]
