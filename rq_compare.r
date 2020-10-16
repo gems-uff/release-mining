@@ -1,5 +1,6 @@
-install.packages("tidyverse")
-install.packages("reshape2")
+#install.packages("tidyverse")
+#install.packages("reshape2")
+library("tidyverse")
 library("effsize")
 library("reshape2")
 
@@ -23,6 +24,8 @@ releases_overall * 100
 #
 # Compare precision
 #
+shapiro.test(releases_bproj$time_precision)
+shapiro.test(releases_bproj$range_precision)
 wilcox.test(releases_bproj$time_precision, releases_bproj$range_precision, paired = TRUE)
 cliff.delta(releases_bproj$time_precision, releases_bproj$range_precision)
 
@@ -33,10 +36,10 @@ releases_bproj %>% melt() %>%
     geom_boxplot() +
     scale_x_discrete(labels=c("range_precision" =  "range-based",
                               "time_precision" = "time-based")) +
-    ylab("precision") +
+    ylab("") + ylim(0,1) +
     xlab("") + coord_flip() + 
     theme_bw(base_size = 18) +
-    theme(axis.text.y = element_text(angle = 90, hjust = 0.5)) +
+    theme(axis.text.y = element_text(angle = 30, hjust = 1)) +
     ggsave("../paper/figs/rq_compare_bp_precision.png", width = 8, height = 2)
 
 ## Scatter - Strategy per project
@@ -69,10 +72,9 @@ releases_bproj %>% melt() %>%
   geom_boxplot() +
   scale_x_discrete(labels=c("range_recall" =  "range-based",
                             "time_recall" = "time-based")) +
-  ylab("recall") +
+  ylab("") + ylim(0,1) +
   xlab("") + coord_flip() + 
   theme_bw(base_size = 18) +
-  theme(axis.text.y = element_text(angle = 90, hjust = 0.5)) +
+  theme(axis.text.y = element_text(angle = 30, hjust = 1)) +
   ggsave("../paper/figs/rq_compare_bp_recall.png", width = 8, height = 2)
-
 
