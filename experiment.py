@@ -268,7 +268,7 @@ def analyze_project(name, lang, suffix_exception_catalog, release_exception_cata
 
 
 pool = mp.Pool(processes=10, maxtasksperchild=10)
-results = [pool.apply_async(analyze_project, args=(project.Index, project.lang, suffix_exception_catalog)) for project in projects.itertuples()]
+results = [pool.apply_async(analyze_project, args=(project.Index, project.lang, suffix_exception_catalog, release_exception_catalog)) for project in projects.itertuples()]
 data = [p.get() for p in results]
 releases = pd.concat(data)
 
