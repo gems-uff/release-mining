@@ -198,19 +198,16 @@ def analyze_project(name, lang, suffix_exception_catalog, release_exception_cata
         vcs = GitVcs(path)
         release_matcher = VersionWoPreReleaseMatcher(suffix_exception=suffix_exception, 
                                                      release_exceptions=release_exceptions)
-        time_release_sorter = TimeReleaseSorter()
-        version_release_sorter = VersionReleaseSorter()
+        release_miner = TagReleaseMiner(vcs, release_matcher)
+        releases = release_miner.mine_releases()
 
-        time_release_miner = TagReleaseMiner(vcs, release_matcher, time_release_sorter)
-        time_release_set = time_release_miner.mine_releases()
+        version_sorter = VersionReleaseSorter()
+        releases_wbase = version_sorter.sort(releases)
 
-        version_release_miner = TagReleaseMiner(vcs, release_matcher, version_release_sorter)
-        version_release_set = version_release_miner.mine_releases()
-
-        path_miner = PathCommitMiner(vcs, time_release_set)
-        range_miner = RangeCommitMiner(vcs, version_release_set)
-        time_miner = TimeCommitMiner(vcs, version_release_set)
-        time_naive_miner = TimeNaiveCommitMiner(vcs, version_release_set)
+        path_miner = PathCommitMiner(vcs, releases)
+        range_miner = RangeCommitMiner(vcs, releases_wbase)
+        time_miner = TimeCommitMiner(vcs, releases_wbase)
+        time_naive_miner = TimeNaiveCommitMiner(vcs, releases_wbase)
     
         path_release_set = path_miner.mine_commits()
         range_release_set = range_miner.mine_commits()
@@ -218,7 +215,7 @@ def analyze_project(name, lang, suffix_exception_catalog, release_exception_cata
         time_naive_release_set = time_naive_miner.mine_commits()
         
         stats = []
-        for release in version_release_set:
+        for release in releases:
             if f"{name}@{release.name}" not in release_exception_catalog:
                 path_commits = set(path_release_set[release.name].commits)
                 range_commits = set(range_release_set[release.name].commits)
