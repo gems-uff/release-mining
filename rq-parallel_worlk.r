@@ -1,38 +1,89 @@
-
 library(tidyverse)
 
-releases <- read.csv("releases.csv")
+# Parallel Work
 
-releases_bproj <- releases %>% group_by(project) %>% 
-  summarise(merges_mean = mean(merges)/mean(commits), releases.total=n())
+releases$pwork <- 100 * releases$committers / releases$commits
+pwork_treshold <- mean(releases$pwork)
 
-releases_bproj <- releases %>% group_by(project) %>% 
-  summarise(merges_mean = merges/commits, min = min(merges), max = max(merges), releases.total=n())
-
-releases_few_merges_bproj <- releases %>% 
-  #inner_join(releases_bproj, by="project") %>%
-  filter(merges < 1) %>%
+releases_few_committers_bproj <- releases %>% 
+  filter(pwork < pwork_treshold) %>%
   group_by(project) %>%
   summarise(time_precision = mean(time_precision),
             time_recall = mean(time_recall),
+            time_fmeasure = mean(time_fmeasure),
             range_precision = mean(range_precision),
             range_recall = mean(range_recall),
+            range_fmeasure = mean(range_fmeasure),
             releases=n())
 
-releases_many_merges_bproj <- releases %>% 
-#  inner_join(releases_bproj, by="project") %>%
-  filter(merges >= 1) %>%
+releases_many_committers_bproj <- releases %>% 
+  filter(pwork >= pwork_treshold) %>%
   group_by(project) %>% 
   summarise(time_precision = mean(time_precision),
             time_recall = mean(time_recall),
+            time_fmeasure = mean(time_fmeasure),
             range_precision = mean(range_precision),
             range_recall = mean(range_recall),
+            range_fmeasure = mean(range_fmeasure),
             releases=n())
 
-releases_bproj <- releases_bproj %>% 
-  inner_join(releases_few_merges_bproj, by="project") %>%
-  inner_join(releases_many_merges_bproj, by="project", suffix=c(".few",".many")) 
+releases_committers_bproj <- releases_few_committers_bproj %>% 
+  #inner_join(releases_few_committers_bproj, by="project") %>%
+  inner_join(releases_many_committers_bproj, by="project", suffix=c(".few",".many")) 
 
+releases_committers_bproj_melted <- releases_committers_bproj %>% 
+  select(-releases.few, -releases.many) %>%
+  melt() %>%
+  mutate(strategy = case_when(grepl("time", variable) ~ "time",
+                              grepl("range", variable) ~ "range",
+                              TRUE ~ "fmeasure"),
+         group = case_when(grepl("few", variable) ~ "few", TRUE ~ "many"))
+
+
+
+##
+
+wilcox.test(releases_committers_bproj$range_recall.many, 
+            releases_committers_bproj$time_recall.many, paired = TRUE)
+cliff.delta(releases_committers_bproj$range_recall.many, 
+            releases_committers_bproj$time_recall.many)
+
+wilcox.test(releases_committers_bproj$range_fmeasure.many, 
+            releases_committers_bproj$time_fmeasure.many, paired = TRUE)
+
+cliff.delta(releases_committers_bproj$range_fmeasure.many, 
+            releases_committers_bproj$time_fmeasure.many)
+
+
+cliff.delta(releases_bproj$range_fmeasure, 
+            releases_bproj$time_fmeasure)
+
+
+releases_committers_bproj_melted %>%
+  filter(grepl("precision", variable)) %>%
+  ggplot(aes(x=variable, y=value)) +
+  geom_boxplot() +
+  coord_flip() +
+  facet_grid(rows = vars(strategy), scales = "free") +
+  theme_bw(base_size = 14)
+
+
+releases_committers_bproj_melted %>%
+  filter(grepl("recall", variable)) %>%
+  ggplot(aes(x=variable, y=value)) +
+  geom_boxplot() +
+  coord_flip() +
+  facet_grid(rows = vars(strategy), scales = "free") +
+  theme_bw(base_size = 14)
+
+
+releases_committers_bproj_melted %>%
+  filter(grepl("fmeasure", variable)) %>%
+  ggplot(aes(x=variable, y=value)) +
+  geom_boxplot() +
+  coord_flip() +
+  facet_grid(rows = vars(strategy), scales = "free") +
+  theme_bw(base_size = 14)
 
 # H2_0 Test
 

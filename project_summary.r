@@ -29,28 +29,28 @@ project_summary %>% select(project, lang, stars, releases, commits) %>% melt() %
 projects %>% count()
 releases %>% count()           
 releases %>% select(commits) %>% sum()
-
+103 / releases %>% count()
 
 releases_bproj <- releases %>% 
   group_by(project) %>%
-  summarize(time_naive_precision=mean(time_naive_precision),
+  summarize(#time_naive_precision=mean(time_naive_precision),
             time_precision=mean(time_precision),
             range_precision=mean(range_precision),
-            time_naive_recall=mean(time_naive_recall),
+            # time_naive_recall=mean(time_naive_recall),
             time_recall=mean(time_recall),
             range_recall=mean(range_recall),
-            time_naive_fmeasure=mean(time_naive_fmeasure),
+            # time_naive_fmeasure=mean(time_naive_fmeasure),
             time_fmeasure=mean(time_fmeasure),
             range_fmeasure=mean(range_fmeasure))
 
 releases_overall <- releases_bproj %>%
-  summarize(time_naive_precision=mean(time_naive_precision),
+  summarize(#time_naive_precision=mean(time_naive_precision),
             time_precision=mean(time_precision),
             range_precision=mean(range_precision),
-            time_naive_recall=mean(time_naive_recall),
+            #time_naive_recall=mean(time_naive_recall),
             time_recall=mean(time_recall),
             range_recall=mean(range_recall),
-            time_naive_fmeasure=mean(time_naive_fmeasure),
+            #time_naive_fmeasure=mean(time_naive_fmeasure),
             time_fmeasure=mean(time_fmeasure),
             range_fmeasure=mean(range_fmeasure))
 

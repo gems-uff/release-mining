@@ -118,7 +118,9 @@ if __name__ ==  '__main__':
         "facebook/react": [
             "15.3.1",
             "15.3.2",
-            "16.1.0"
+            "16.1.0",
+            "v15.7.0", #clone
+            "v16.14.0" #clone
         ], 
         "facebook/react-native": [
             "0.60.2"
@@ -167,6 +169,7 @@ if __name__ ==  '__main__':
             "rel/1.0.1",
             "release/2.2",
             "release/3.0",
+            "v2.1.23", #clone
             "v2.1.10", #clone
             "v2.1.13", #clone
             "v2.1.16", #clone
@@ -292,5 +295,5 @@ if __name__ ==  '__main__':
     releases.time_fneg = pd.to_numeric(releases.time_fneg)
     releases = releases.set_index(['project', 'name'])
 
-    releases.to_pickle("releases.zip")
-    releases.to_csv("releases.csv")
+    releases.to_pickle("raw_releases.zip")
+    releases.to_csv("raw_releases.csv")

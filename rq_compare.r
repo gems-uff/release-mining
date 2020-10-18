@@ -10,23 +10,32 @@ library("PMCMR")
 # RQ1.A Naive Time vs Time
 ## Hyphotesis test
 ### Precision
-shapiro.test(releases_bproj$time_naive_precision)
 shapiro.test(releases_bproj$time_precision)
 shapiro.test(releases_bproj$range_precision)
-
-releases_bproj_precsion_matrix <- as.matrix(releases_bproj %>% select(grep("precision", names(.))))
-friedman.test(releases_bproj_precsion_matrix)
-posthoc.friedman.nemenyi.test(releases_bproj_precsion_matrix)
-
 wilcox.test(releases_bproj$range_precision, releases_bproj$time_precision, paired = TRUE)
-wilcox.test(releases_bproj$range_precision, releases_bproj$time_naive_precision, paired = TRUE)
-wilcox.test(releases_bproj$time_precision, releases_bproj$time_naive_precision, paired = TRUE)
+
+
+#shapiro.test(releases_bproj$time_naive_precision)
+
+#releases_bproj_precsion_matrix <- as.matrix(releases_bproj %>% select(grep("precision", names(.))))
+#friedman.test(releases_bproj_precsion_matrix)
+#posthoc.friedman.nemenyi.test(releases_bproj_precsion_matrix)
+
+#wilcox.test(releases_bproj$range_precision, releases_bproj$time_naive_precision, paired = TRUE)
+#wilcox.test(releases_bproj$time_precision, releases_bproj$time_naive_precision, paired = TRUE)
 
 cliff.delta(releases_bproj$range_precision, releases_bproj$time_precision)
 cliff.delta(releases_bproj$range_precision, releases_bproj$time_naive_precision)
 cliff.delta(releases_bproj$time_precision, releases_bproj$time_naive_precision)
 
-### 
+### Recal
+shapiro.test(releases_bproj$time_recall)
+shapiro.test(releases_bproj$range_recall)
+
+wilcox.test(releases_bproj$range_recall, releases_bproj$time_recall, paired = TRUE)
+cliff.delta(releases_bproj$range_recall, releases_bproj$time_recall)
+
+
 
 releases %>% #filter(range_precision > time_precision) %>%
   select(project, name, commits, range_commits, time_commits,  
