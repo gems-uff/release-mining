@@ -26,10 +26,18 @@ cliff.delta(releases_bproj$range_precision, releases_bproj$time_precision)
 cliff.delta(releases_bproj$range_precision, releases_bproj$time_naive_precision)
 cliff.delta(releases_bproj$time_precision, releases_bproj$time_naive_precision)
 
-### A
+### 
 
+releases %>% #filter(range_precision > time_precision) %>%
+  select(project, name, commits, range_commits, time_commits,  
+         range_precision, time_precision, time_naive_precision,
+         range_recall, time_recall, time_naive_recall,
+         base_releases, range_base_releases, time_base_releases) %>%
+  filter(range_commits == 0) %>% view()
+  
+
+a %>% count() / releases %>% count()
 ### Recall
-
 
 friedman.test(as.matrix(releases_bproj %>% select(grep("recall", names(.)))))
 friedman.test(as.matrix(releases_bproj %>% select(grep("fmeasure", names(.)))))
