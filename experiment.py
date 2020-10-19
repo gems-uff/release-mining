@@ -5,14 +5,14 @@ import sys
 import multiprocessing as mp
 import time
 
-# releasy_path = os.path.join('..','..','dev','releasy')
-releasy_path = os.path.join('..','..','..','dev','releasy2')
+releasy_path = os.path.join('..','..','dev','releasy')
+# releasy_path = os.path.join('..','..','..','dev','releasy2')
 
-# repo_path = os.path.abspath(os.path.join('..','..','repos'))
-repo_path = os.path.abspath(os.path.join('..','..','..','repos2'))
+repo_path = os.path.abspath(os.path.join('..','..','repos'))
+# repo_path = os.path.abspath(os.path.join('..','..','..','repos2'))
 
-# threads = 10
-threads = 4
+threads = 10
+#threads = 4
 
 releasy_module = os.path.abspath(releasy_path)
 sys.path.insert(0, releasy_module)
@@ -46,12 +46,12 @@ def analyze_project(name, lang, suffix_exception_catalog, release_exception_cata
         path_miner = PathCommitMiner(vcs, releases)
         range_miner = RangeCommitMiner(vcs, releases_wbase)
         time_miner = TimeCommitMiner(vcs, releases_wbase)
-        # time_naive_miner = TimeNaiveCommitMiner(vcs, releases_wbase)
+        time_naive_miner = TimeNaiveCommitMiner(vcs, releases_wbase)
     
         path_release_set = path_miner.mine_commits()
         range_release_set = range_miner.mine_commits()
         time_release_set = time_miner.mine_commits()
-        # time_naive_release_set = time_naive_miner.mine_commits()
+        time_naive_release_set = time_naive_miner.mine_commits()
         
         stats = []
         for release in releases:
