@@ -14,20 +14,6 @@ shapiro.test(releases_bproj$time_precision)
 shapiro.test(releases_bproj$range_precision)
 wilcox.test(releases_bproj$range_precision, releases_bproj$time_precision, paired = TRUE)
 
-
-#shapiro.test(releases_bproj$time_naive_precision)
-
-#releases_bproj_precsion_matrix <- as.matrix(releases_bproj %>% select(grep("precision", names(.))))
-#friedman.test(releases_bproj_precsion_matrix)
-#posthoc.friedman.nemenyi.test(releases_bproj_precsion_matrix)
-
-#wilcox.test(releases_bproj$range_precision, releases_bproj$time_naive_precision, paired = TRUE)
-#wilcox.test(releases_bproj$time_precision, releases_bproj$time_naive_precision, paired = TRUE)
-
-cliff.delta(releases_bproj$range_precision, releases_bproj$time_precision)
-cliff.delta(releases_bproj$range_precision, releases_bproj$time_naive_precision)
-cliff.delta(releases_bproj$time_precision, releases_bproj$time_naive_precision)
-
 ### Recal
 shapiro.test(releases_bproj$time_recall)
 shapiro.test(releases_bproj$range_recall)
@@ -35,22 +21,13 @@ shapiro.test(releases_bproj$range_recall)
 wilcox.test(releases_bproj$range_recall, releases_bproj$time_recall, paired = TRUE)
 cliff.delta(releases_bproj$range_recall, releases_bproj$time_recall)
 
+### F-measure
+shapiro.test(releases_bproj$time_fmeasure)
+shapiro.test(releases_bproj$range_fmeasure)
 
-
-releases %>% #filter(range_precision > time_precision) %>%
-  select(project, name, commits, range_commits, time_commits,  
-         range_precision, time_precision, time_naive_precision,
-         range_recall, time_recall, time_naive_recall,
-         base_releases, range_base_releases, time_base_releases) %>%
-  filter(range_commits == 0) %>% view()
+wilcox.test(releases_bproj$range_fmeasure, releases_bproj$time_fmeasure, paired = TRUE)
+cliff.delta(releases_bproj$range_fmeasure, releases_bproj$time_fmeasure)
   
-
-a %>% count() / releases %>% count()
-### Recall
-
-friedman.test(as.matrix(releases_bproj %>% select(grep("recall", names(.)))))
-friedman.test(as.matrix(releases_bproj %>% select(grep("fmeasure", names(.)))))
-
 ## Boxplots
 releases_bproj_melted %>%
   filter(grepl("precision", variable)) %>%
@@ -62,7 +39,7 @@ releases_bproj_melted %>%
     ylab("") + ylim(0,1) +
     xlab("") + coord_flip() + 
     theme_bw(base_size = 14) +
-    ggsave("../paper/figs/rq_compare_bp_precision.png", width = 8, height = 3)
+    ggsave("../paper/figs/rq_compare_bp_precision.png", width = 8, height = 2)
 
 releases_bproj_melted %>%
   filter(grepl("recall", variable)) %>%
@@ -74,7 +51,7 @@ releases_bproj_melted %>%
   ylab("") + ylim(0,1) +
   xlab("") + coord_flip() + 
   theme_bw(base_size = 14) +
-  ggsave("../paper/figs/rq_compare_bp_recall.png", width = 8, height = 3)
+  ggsave("../paper/figs/rq_compare_bp_recall.png", width = 8, height = 2)
 
 releases_bproj_melted %>%
   filter(grepl("fmeasure", variable)) %>%
@@ -86,7 +63,7 @@ releases_bproj_melted %>%
   ylab("") + ylim(0,1) +
   xlab("") + coord_flip() + 
   theme_bw(base_size = 14) +
-  ggsave("../paper/figs/rq_compare_bp_fmeasure.png", width = 8, height = 3)
+  ggsave("../paper/figs/rq_compare_bp_fmeasure.png", width = 8, height = 2)
 
 
 ## Scatter - Strategy per project

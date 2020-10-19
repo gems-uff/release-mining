@@ -2,8 +2,10 @@ library(tidyverse)
 
 # Parallel Work
 
+
 releases$pwork <- 100 * releases$committers / releases$commits
 pwork_treshold <- mean(releases$pwork)
+# pwork_treshold <- 100 * sum(releases$committers) / sum(releases$commits)
 
 releases_few_committers_bproj <- releases %>% 
   filter(pwork < pwork_treshold) %>%
@@ -41,7 +43,36 @@ releases_committers_bproj_melted <- releases_committers_bproj %>%
 
 
 
-##
+###
+# Precision
+shapiro.test(releases_committers_bproj$time_precision.few)
+shapiro.test(releases_committers_bproj$time_precision.many)
+wilcox.test(releases_committers_bproj$time_precision.few, 
+            releases_committers_bproj$time_precision.many, paired = TRUE)
+cliff.delta(releases_committers_bproj$time_precision.few, 
+            releases_committers_bproj$time_precision.many)
+
+shapiro.test(releases_committers_bproj$range_precision.few)
+shapiro.test(releases_committers_bproj$range_precision.many)
+wilcox.test(releases_committers_bproj$range_precision.few, 
+            releases_committers_bproj$range_precision.many, paired = TRUE)
+cliff.delta(releases_committers_bproj$range_precision.few, 
+            releases_committers_bproj$range_precision.many)
+
+
+shapiro.test(releases_committers_bproj$time_recall.few)
+shapiro.test(releases_committers_bproj$time_recall.many)
+wilcox.test(releases_committers_bproj$time_recall.few,
+            releases_committers_bproj$time_recall.many, paired = TRUE)
+cliff.delta(releases_committers_bproj$time_recall.few,
+            releases_committers_bproj$time_recall.many)
+
+
+shapiro.test(releases_committers_bproj$range_recall.few)
+shapiro.test(releases_committers_bproj$range_recall.many)
+wilcox.test(releases_committers_bproj$range_recall.few,
+              releases_committers_bproj$range_recall.many, paired = TRUE)
+
 
 wilcox.test(releases_committers_bproj$range_recall.many, 
             releases_committers_bproj$time_recall.many, paired = TRUE)
@@ -62,28 +93,50 @@ cliff.delta(releases_bproj$range_fmeasure,
 releases_committers_bproj_melted %>%
   filter(grepl("precision", variable)) %>%
   ggplot(aes(x=variable, y=value)) +
-  geom_boxplot() +
-  coord_flip() +
-  facet_grid(rows = vars(strategy), scales = "free") +
-  theme_bw(base_size = 14)
+    geom_boxplot() +
+    coord_flip() +
+    scale_x_discrete(labels=c("time_precision.many" = "many",
+                              "time_precision.few" =  "few",
+                              "range_precision.many" = "many",
+                              "range_precision.few" =  "few")) +
+    facet_grid(rows = vars(strategy), scales = "free") +
+    ylab("") + ylim(0,1) +
+    xlab("") + coord_flip() + 
+    theme_bw(base_size = 14) +
+    ggsave("../paper/figs/rq_pwork_col_bp_precision.png", width = 8, height = 4)
 
 
 releases_committers_bproj_melted %>%
   filter(grepl("recall", variable)) %>%
   ggplot(aes(x=variable, y=value)) +
-  geom_boxplot() +
-  coord_flip() +
-  facet_grid(rows = vars(strategy), scales = "free") +
-  theme_bw(base_size = 14)
+    geom_boxplot() +
+    coord_flip() +
+    scale_x_discrete(labels=c("time_recall.many" = "many",
+                              "time_recall.few" =  "few",
+                              "range_recall.many" = "many",
+                              "range_recall.few" =  "few")) +
+    facet_grid(rows = vars(strategy), scales = "free") +
+    ylab("") + ylim(0,1) +
+    xlab("") + coord_flip() + 
+    theme_bw(base_size = 14) +
+    ggsave("../paper/figs/rq_pwork_col_bp_recall.png", width = 8, height = 4)
+
 
 
 releases_committers_bproj_melted %>%
   filter(grepl("fmeasure", variable)) %>%
   ggplot(aes(x=variable, y=value)) +
-  geom_boxplot() +
-  coord_flip() +
-  facet_grid(rows = vars(strategy), scales = "free") +
-  theme_bw(base_size = 14)
+    geom_boxplot() +
+    coord_flip() +
+    scale_x_discrete(labels=c("time_fmeasure.many" = "many",
+                              "time_fmeasure.few" =  "few",
+                              "range_fmeasure.many" = "many",
+                              "range_fmeasure.few" =  "few")) +
+    facet_grid(rows = vars(strategy), scales = "free") +
+    ylab("") + ylim(0,1) +
+    xlab("") + coord_flip() + 
+    theme_bw(base_size = 14) +
+    ggsave("../paper/figs/rq_pwork_col_bp_fmeasure.png", width = 8, height = 4)
 
 # H2_0 Test
 
