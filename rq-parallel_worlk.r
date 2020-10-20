@@ -45,6 +45,12 @@ releases_committers_bproj_melted <- releases_committers_bproj %>%
 
 ###
 # Precision
+100 * releases_committers_bproj %>%
+  summarise(time_precision.few = mean(time_precision.few),
+            time_precision.many = mean(time_precision.many),
+            range_precision.few = mean(range_precision.few),
+            range_precision.many = mean(range_precision.many))
+
 shapiro.test(releases_committers_bproj$time_precision.few)
 shapiro.test(releases_committers_bproj$time_precision.many)
 wilcox.test(releases_committers_bproj$time_precision.few, 
@@ -60,6 +66,12 @@ cliff.delta(releases_committers_bproj$range_precision.few,
             releases_committers_bproj$range_precision.many)
 
 
+100 * releases_committers_bproj %>%
+  summarise(time_recall.few = mean(time_recall.few),
+            time_recall.many = mean(time_recall.many),
+            range_recall.few = mean(range_recall.few),
+            range_recall.many = mean(range_recall.many))
+
 shapiro.test(releases_committers_bproj$time_recall.few)
 shapiro.test(releases_committers_bproj$time_recall.many)
 wilcox.test(releases_committers_bproj$time_recall.few,
@@ -67,11 +79,13 @@ wilcox.test(releases_committers_bproj$time_recall.few,
 cliff.delta(releases_committers_bproj$time_recall.few,
             releases_committers_bproj$time_recall.many)
 
-
 shapiro.test(releases_committers_bproj$range_recall.few)
 shapiro.test(releases_committers_bproj$range_recall.many)
 wilcox.test(releases_committers_bproj$range_recall.few,
               releases_committers_bproj$range_recall.many, paired = TRUE)
+
+
+
 
 
 wilcox.test(releases_committers_bproj$range_recall.many, 

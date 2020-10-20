@@ -105,3 +105,7 @@ releases_bproj_melted %>%
   theme_bw() +
   ggsave("../paper/figs/rq_compare_bp_recall.png", width = 8, height = 3)
 
+######
+
+releases %>% filter(range_recall < 1) %>% select(project, name)
+

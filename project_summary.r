@@ -67,3 +67,6 @@ releases_bproj_melted <- releases_bproj %>% melt() %>%
                                                 "range_recall",
                                                 "range_fmeasure")))
 
+
+#releases %>% view()
+
