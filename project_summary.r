@@ -26,6 +26,8 @@ project_summary %>% select(project, lang, stars, releases, commits) %>% melt() %
   theme(axis.text.x = element_text(angle = 30, hjust = 1)) + 
   ggsave("../paper/figs/summary.png", width = 8, height = 6)
 
+project_summary %>% summarize(min(stars), min(releases), min(commits))
+
 projects %>% count()
 releases %>% count()           
 releases %>% select(commits) %>% sum()
@@ -68,5 +70,5 @@ releases_bproj_melted <- releases_bproj %>% melt() %>%
                                                 "range_fmeasure")))
 
 
-#releases %>% view()
+releases %>% view()
 

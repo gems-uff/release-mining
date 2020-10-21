@@ -79,10 +79,10 @@ wilcox.test(releases_committers_bproj$time_recall.few,
 cliff.delta(releases_committers_bproj$time_recall.few,
             releases_committers_bproj$time_recall.many)
 
-shapiro.test(releases_committers_bproj$range_recall.few)
-shapiro.test(releases_committers_bproj$range_recall.many)
-wilcox.test(releases_committers_bproj$range_recall.few,
-              releases_committers_bproj$range_recall.many, paired = TRUE)
+#shapiro.test(releases_committers_bproj$range_recall.few)
+#shapiro.test(releases_committers_bproj$range_recall.many)
+#wilcox.test(releases_committers_bproj$range_recall.few,
+#              releases_committers_bproj$range_recall.many, paired = TRUE)
 
 
 
