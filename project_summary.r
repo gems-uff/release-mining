@@ -13,8 +13,27 @@ releases %>% summarize(commits=sum(commits), releases=n())
 
 project_summary <- releases %>% 
   group_by(project) %>% 
-  summarize(lang=first(lang), commits=sum(commits), releases=n()) %>%
-  merge(projects %>% select(project,stars), by="project")
+  summarize(lang=first(lang), release_commits=sum(commits), releases=n()) %>%
+  merge(projects %>% select(project,stars,commits), by="project") %>%
+  mutate(blang = case_when(grepl("c$", lang) ~ "C",
+                           grepl("c#", lang) ~ "C#",
+                           grepl("c\\+\\+", lang) ~ "C++",
+                           grepl("go", lang) ~ "Go",
+                           grepl("java$", lang) ~ "Java",
+                           grepl("javascript", lang) ~ "JavaScript",
+                           grepl("php", lang) ~ "PHP",
+                           grepl("python", lang) ~ "Python",
+                           grepl("ruby", lang) ~ "Ruby",
+                           grepl("typescript", lang) ~ "TypeScript",
+                           TRUE ~ "NA"))
+
+project_summary %>% group_by(lang) %>%
+  summarize(blang=first(blang), n=n(), min(stars), max(stars), min(commits), max(commits),
+            min(releases), max(releases)) %>% select(-lang, -n) %>%
+  xtable() %>% print(type = "latex", format.args=list(big.mark = ","), 
+                     include.rownames=FALSE)
+
+
 
 project_summary %>% select(project, lang, stars, releases, commits) %>% melt() %>%
   ggplot(aes(x=lang)) +
@@ -72,3 +91,11 @@ releases_bproj_melted <- releases_bproj %>% melt() %>%
 
 releases %>% view()
 
+releases %>% 
+  filter(time_precision < 1, range_precision < 1, time_recall < 1) %>%
+  arrange(commits) %>% select(project, name, commits, 
+                              time_precision, range_precision,
+                              time_recall, range_recall) %>%
+  view()
+
+releases %>% filter(grepl(".", name))

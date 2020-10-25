@@ -29,42 +29,29 @@ wilcox.test(releases_bproj$range_fmeasure, releases_bproj$time_fmeasure, paired 
 cliff.delta(releases_bproj$range_fmeasure, releases_bproj$time_fmeasure)
   
 ## Boxplots
+releases_bproj %>% summarize(min(time_precision), min(range_precision))
 releases_bproj_melted %>%
-  filter(grepl("precision", variable)) %>%
+  filter(grepl("precision", variable), grepl("^time|range", variable)) %>%
   ggplot(aes(x=variable, y=value)) +
     geom_boxplot() +
-    scale_x_discrete(labels=c("time_naive_precision" = "naive time-based",
-                              "time_precision" = "time-based",
+    scale_x_discrete(labels=c("time_precision" = "time-based",
                               "range_precision" =  "range-based")) +
-    ylab("") + ylim(0,1) +
+    ylab("") + ylim(0.85,1) +
     xlab("") + coord_flip() + 
     theme_bw(base_size = 14) +
-    ggsave("../paper/figs/rq_compare_bp_precision.png", width = 8, height = 2)
+    ggsave("../paper/figs/rq_best_bp_precision.png", width = 8, height = 2)
 
+releases_bproj %>% summarize(min(time_recall), min(range_recall))
 releases_bproj_melted %>%
-  filter(grepl("recall", variable)) %>%
+  filter(grepl("recall", variable), grepl("^time|range", variable)) %>%
   ggplot(aes(x=variable, y=value)) +
   geom_boxplot() +
-  scale_x_discrete(labels=c("time_naive_recall" = "naive time-based",
-                            "time_recall" = "time-based",
+  scale_x_discrete(labels=c("time_recall" = "time-based",
                             "range_recall" =  "range-based")) +
-  ylab("") + ylim(0,1) +
+  ylab("") + ylim(0.7,1) +
   xlab("") + coord_flip() + 
   theme_bw(base_size = 14) +
-  ggsave("../paper/figs/rq_compare_bp_recall.png", width = 8, height = 2)
-
-releases_bproj_melted %>%
-  filter(grepl("fmeasure", variable)) %>%
-  ggplot(aes(x=variable, y=value)) +
-  geom_boxplot() +
-  scale_x_discrete(labels=c("time_naive_fmeasure" = "naive time-based",
-                            "time_fmeasure" = "time-based",
-                            "range_fmeasure" =  "range-based")) +
-  ylab("") + ylim(0,1) +
-  xlab("") + coord_flip() + 
-  theme_bw(base_size = 14) +
-  ggsave("../paper/figs/rq_compare_bp_fmeasure.png", width = 8, height = 2)
-
+  ggsave("../paper/figs/rq_best_bp_recall.png", width = 8, height = 2)
 
 ## Scatter - Strategy per project
 releases_bproj %>%

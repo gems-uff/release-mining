@@ -49,7 +49,13 @@ releases_committers_bproj_melted <- releases_committers_bproj %>%
   summarise(time_precision.few = mean(time_precision.few),
             time_precision.many = mean(time_precision.many),
             range_precision.few = mean(range_precision.few),
-            range_precision.many = mean(range_precision.many))
+            range_precision.many = mean(range_precision.many)) %>% round(4)
+
+100 * releases_committers_bproj %>%
+  summarise(time_fmeasure.few = mean(time_fmeasure.few),
+            time_fmeasure.many = mean(time_fmeasure.many),
+            range_fmeasure.few = mean(range_fmeasure.few),
+            range_fmeasure.many = mean(range_fmeasure.many)) %>% round(4)
 
 shapiro.test(releases_committers_bproj$time_precision.few)
 shapiro.test(releases_committers_bproj$time_precision.many)
@@ -70,7 +76,7 @@ cliff.delta(releases_committers_bproj$range_precision.few,
   summarise(time_recall.few = mean(time_recall.few),
             time_recall.many = mean(time_recall.many),
             range_recall.few = mean(range_recall.few),
-            range_recall.many = mean(range_recall.many))
+            range_recall.many = mean(range_recall.many)) %>% round(4)
 
 shapiro.test(releases_committers_bproj$time_recall.few)
 shapiro.test(releases_committers_bproj$time_recall.many)
@@ -103,7 +109,8 @@ cliff.delta(releases_committers_bproj$range_fmeasure.many,
 cliff.delta(releases_bproj$range_fmeasure, 
             releases_bproj$time_fmeasure)
 
-
+releases_committers_bproj %>% summarize(min(time_precision.few), min(time_precision.many),
+                                        min(range_precision.few), min(range_precision.many))
 releases_committers_bproj_melted %>%
   filter(grepl("precision", variable)) %>%
   ggplot(aes(x=variable, y=value)) +
@@ -113,15 +120,18 @@ releases_committers_bproj_melted %>%
                               "time_precision.few" =  "few",
                               "range_precision.many" = "many",
                               "range_precision.few" =  "few")) +
-    facet_grid(rows = vars(strategy), scales = "free") +
-    ylab("") + ylim(0,1) +
+    facet_grid(rows = vars(strategy), scales = "free", 
+               labeller = as_labeller(c("range" = "range-based", "time" = "time-based"))) +
+    ylab("") + ylim(0.75,1) +
     xlab("") + coord_flip() + 
     theme_bw(base_size = 14) +
-    ggsave("../paper/figs/rq_pwork_col_bp_precision.png", width = 8, height = 4)
+    ggsave("../paper/figs/rq_factors_bp_collaborators_precision.png", width = 8, height = 3)
 
 
+releases_committers_bproj %>% summarize(min(time_recall.few), min(time_recall.many),
+                                        min(range_recall.few), min(range_recall.many))
 releases_committers_bproj_melted %>%
-  filter(grepl("recall", variable)) %>%
+  filter(grepl("recall", variable), grepl("^time", variable)) %>%
   ggplot(aes(x=variable, y=value)) +
     geom_boxplot() +
     coord_flip() +
@@ -129,12 +139,11 @@ releases_committers_bproj_melted %>%
                               "time_recall.few" =  "few",
                               "range_recall.many" = "many",
                               "range_recall.few" =  "few")) +
-    facet_grid(rows = vars(strategy), scales = "free") +
-    ylab("") + ylim(0,1) +
+    #facet_grid(rows = vars(strategy), scales = "free") +
+    ylab("") + ylim(0.45,1) +
     xlab("") + coord_flip() + 
     theme_bw(base_size = 14) +
-    ggsave("../paper/figs/rq_pwork_col_bp_recall.png", width = 8, height = 4)
-
+    ggsave("../paper/figs/rq_factors_bp_collaborators_recall.png", width = 8, height = 2)
 
 
 releases_committers_bproj_melted %>%
