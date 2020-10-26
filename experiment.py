@@ -59,12 +59,12 @@ def analyze_project(name, lang, suffix_exception_catalog, release_exception_cata
                 path_commits = set(path_release_set[release.name].commits)
                 range_commits = set(range_release_set[release.name].commits)
                 time_commits = set(time_release_set[release.name].commits)
-                # time_naive_commits = set(time_naive_release_set[release.name].commits)
+                time_naive_commits = set(time_naive_release_set[release.name].commits)
             
                 path_base_releases = [release.name.value for release in (path_release_set[release.name].base_releases or [])]
                 range_base_releases = [release.name.value for release in (range_release_set[release.name].base_releases or [])]
                 time_base_releases = [release.name.value for release in (time_release_set[release.name].base_releases or [])]
-                # time_naive_base_releases = [release.name.value for release in (time_naive_release_set[release.name].base_releases or [])]
+                time_naive_base_releases = [release.name.value for release in (time_naive_release_set[release.name].base_releases or [])]
 
                 stats.append({
                     "project": name,
@@ -91,11 +91,11 @@ def analyze_project(name, lang, suffix_exception_catalog, release_exception_cata
                     "time_tpos": len(path_commits & time_commits),
                     "time_fpos": len(time_commits - path_commits),
                     "time_fneg": len(path_commits - time_commits),
-                    # "time_naive_commits": len(time_naive_commits),
-                    # "time_naive_base_releases": time_naive_base_releases,
-                    # "time_naive_tpos": len(path_commits & time_naive_commits),
-                    # "time_naive_fpos": len(time_naive_commits - path_commits),
-                    # "time_naive_fneg": len(path_commits - time_naive_commits)
+                    "time_naive_commits": len(time_naive_commits),
+                    "time_naive_base_releases": time_naive_base_releases,
+                    "time_naive_tpos": len(path_commits & time_naive_commits),
+                    "time_naive_fpos": len(time_naive_commits - path_commits),
+                    "time_naive_fneg": len(path_commits - time_naive_commits)
                 })
         releases = pd.DataFrame(stats)
         print(f"{time.time() - start:10} - {name}") 

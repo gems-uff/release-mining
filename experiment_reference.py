@@ -19,7 +19,7 @@ sys.path.insert(0, releasy_module)
     
 import releasy
 from releasy.miner_git import GitVcs
-from releasy.miner import TagReleaseMiner, TimeVersionReleaseSorter, PathCommitMiner, RangeCommitMiner, TimeCommitMiner, TimeNaiveCommitMiner, VersionReleaseMatcher, VersionReleaseSorter, TimeReleaseSorter, VersionWoPreReleaseMatcher
+from releasy.miner import DescribeReleaseSorter, TagReleaseMiner, TimeVersionReleaseSorter, PathCommitMiner, RangeCommitMiner, TimeCommitMiner, TimeNaiveCommitMiner, VersionReleaseMatcher, VersionReleaseSorter, TimeReleaseSorter, VersionWoPreReleaseMatcher
 
 
 def match(ground_truth, reference, release):
@@ -71,28 +71,31 @@ def analyze_reference(name, suffix_exception_catalog, release_exception_catalog)
         stats = []
         for release in releases:
             if f"{name}@{release.name}" not in release_exception_catalog:
-                path_base_releases = [release.name.value for release in (path_release_set[release.name].base_releases or [])]
-                base_releases = path_release_set[release.name].base_releases
-                qnt = len(base_releases)
-                timeversion_match, timeversion_basename = match(path_release_set, timeversion_releases, release)
-                version_match, version_basename = match(path_release_set, version_releases, release)
-                time_match, time_basename = match(path_release_set, time_releases, release)
-                describe_match, describe_basename = match(path_release_set, describe_releases, release)
+                try:
+                    path_base_releases = [release.name.value for release in (path_release_set[release.name].base_releases or [])]
+                    base_releases = path_release_set[release.name].base_releases
+                    qnt = len(base_releases)
+                    timeversion_match, timeversion_basename = match(path_release_set, timeversion_releases, release)
+                    version_match, version_basename = match(path_release_set, version_releases, release)
+                    time_match, time_basename = match(path_release_set, time_releases, release)
+                    describe_match, describe_basename = match(path_release_set, describe_releases, release)
 
-                stats.append({
-                    "project": name,
-                    "name": release.name.value,
-                    "base_releases": qnd,
-                    "basenames": path_base_releases,
-                    "timeversion_match": timeversion_match,
-                    "timeversion_basename": timeversion_basename,
-                    "version_match": version_match,
-                    "version_basename": version_basename,
-                    "time_match": time_match,
-                    "time_basename": time_basename,
-                    "describe_match": describe_match,
-                    "describe_basename": describe_basename
-                })
+                    stats.append({
+                        "project": name,
+                        "name": release.name.value,
+                        "base_releases": qnt,
+                        "basenames": path_base_releases,
+                        "timeversion_match": timeversion_match,
+                        "timeversion_basename": timeversion_basename,
+                        "version_match": version_match,
+                        "version_basename": version_basename,
+                        "time_match": time_match,
+                        "time_basename": time_basename,
+                        "describe_match": describe_match,
+                        "describe_basename": describe_basename
+                    })
+                except Exception as e:
+                    print(f"x {name}") 
         releases = pd.DataFrame(stats)
         print(f"{time.time() - start:10} - {name}") 
         return releases
