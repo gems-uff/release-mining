@@ -1,5 +1,7 @@
 
 
+
+base_treshold <- 100 * mean(releases$base_releases_qnt / releases$commits)
 base_treshold <- mean(releases$base_releases_qnt)
 
 
@@ -34,15 +36,7 @@ releases_bases_bproj_melted <- releases_bases_bproj %>%
   mutate(group = case_when(grepl("few", variable) ~ "few", TRUE ~ "many"),
          strategy = case_when(grepl("time", variable) ~ "time",
                               grepl("range", variable) ~ "range",
-                              TRUE ~ "fmeasure")) %>%
-  mutate(variable = factor(variable, levels=c("time_precision.many",
-                                              "time_precision.few",
-                                              "time_recall.many",
-                                              "time_recall.few",
-                                              "range_precision.many",
-                                              "range_precision.few",
-                                              "range_recall.many",
-                                              "range_recall.few")))
+                              TRUE ~ "fmeasure"))
 
 # H2_0 Test
 100 * releases_bases_bproj %>%
@@ -55,6 +49,9 @@ shapiro.test(releases_bases_bproj$time_precision.few)
 shapiro.test(releases_bases_bproj$time_precision.many)
 wilcox.test(releases_bases_bproj$time_precision.few, 
             releases_bases_bproj$time_precision.many, paired = TRUE)
+cliff.delta(releases_bases_bproj$time_precision.few, 
+            releases_bases_bproj$time_precision.many)
+
 
 shapiro.test(releases_bases_bproj$range_precision.few)
 shapiro.test(releases_bases_bproj$range_precision.many)
@@ -82,8 +79,8 @@ releases_bases_bproj_melted %>%
   ggplot(aes(x=variable, y=value)) +
   geom_boxplot() +
   coord_flip() +
-  scale_x_discrete(labels=c("time_recall.many" = "multiple",
-                            "time_recall.few" =  "single")) +
+  scale_x_discrete(labels=c("time_recall.many" = "many",
+                            "time_recall.few" =  "few")) +
 #  facet_grid(rows = vars(strategy), scales = "free") +
   ylab("") + ylim(0,1) +
   xlab("") + coord_flip() + 

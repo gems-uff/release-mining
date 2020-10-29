@@ -2,6 +2,9 @@ library(tidyverse)
 
 # Parallel Work
 
+cor(releases %>% select(commits, committers, base_releases_qnt), method = "spearman")
+cor.test(releases$commits, releases$committers, method = "spearman")
+cor.test(releases$commits, releases$base_releases_qnt, method = "spearman")
 
 releases$pwork <- 100 * releases$committers / releases$commits
 pwork_treshold <- mean(releases$pwork)
@@ -39,7 +42,19 @@ releases_committers_bproj_melted <- releases_committers_bproj %>%
   mutate(strategy = case_when(grepl("time", variable) ~ "time",
                               grepl("range", variable) ~ "range",
                               TRUE ~ "fmeasure"),
-         group = case_when(grepl("few", variable) ~ "few", TRUE ~ "many"))
+         group = case_when(grepl("few", variable) ~ "few", TRUE ~ "many")) %>%
+  mutate(strategy = factor(strategy, levels = c("time",
+                                                "range")),
+         group = factor(group, levels=c("many", "few")),
+         variable = factor(variable, levels=c("time_precision.many",
+                                              "time_precision.few",
+                                              "time_recall.many",
+                                              "time_recall.few",
+                                              "range_precision.many",
+                                              "range_precision.few",
+                                              "range_recall.many",
+                                              "range_recall.few")))
+          
 
 
 
@@ -50,12 +65,6 @@ releases_committers_bproj_melted <- releases_committers_bproj %>%
             time_precision.many = mean(time_precision.many),
             range_precision.few = mean(range_precision.few),
             range_precision.many = mean(range_precision.many)) %>% round(4)
-
-100 * releases_committers_bproj %>%
-  summarise(time_fmeasure.few = mean(time_fmeasure.few),
-            time_fmeasure.many = mean(time_fmeasure.many),
-            range_fmeasure.few = mean(range_fmeasure.few),
-            range_fmeasure.many = mean(range_fmeasure.many)) %>% round(4)
 
 shapiro.test(releases_committers_bproj$time_precision.few)
 shapiro.test(releases_committers_bproj$time_precision.many)
@@ -78,6 +87,12 @@ cliff.delta(releases_committers_bproj$range_precision.few,
             range_recall.few = mean(range_recall.few),
             range_recall.many = mean(range_recall.many)) %>% round(4)
 
+100 * releases_committers_bproj %>%
+  summarise(time_fmeasure.few = mean(time_fmeasure.few),
+            time_fmeasure.many = mean(time_fmeasure.many),
+            range_fmeasure.few = mean(range_fmeasure.few),
+            range_fmeasure.many = mean(range_fmeasure.many)) %>% round(4)
+
 shapiro.test(releases_committers_bproj$time_recall.few)
 shapiro.test(releases_committers_bproj$time_recall.many)
 wilcox.test(releases_committers_bproj$time_recall.few,
@@ -85,29 +100,6 @@ wilcox.test(releases_committers_bproj$time_recall.few,
 cliff.delta(releases_committers_bproj$time_recall.few,
             releases_committers_bproj$time_recall.many)
 
-#shapiro.test(releases_committers_bproj$range_recall.few)
-#shapiro.test(releases_committers_bproj$range_recall.many)
-#wilcox.test(releases_committers_bproj$range_recall.few,
-#              releases_committers_bproj$range_recall.many, paired = TRUE)
-
-
-
-
-
-wilcox.test(releases_committers_bproj$range_recall.many, 
-            releases_committers_bproj$time_recall.many, paired = TRUE)
-cliff.delta(releases_committers_bproj$range_recall.many, 
-            releases_committers_bproj$time_recall.many)
-
-wilcox.test(releases_committers_bproj$range_fmeasure.many, 
-            releases_committers_bproj$time_fmeasure.many, paired = TRUE)
-
-cliff.delta(releases_committers_bproj$range_fmeasure.many, 
-            releases_committers_bproj$time_fmeasure.many)
-
-
-cliff.delta(releases_bproj$range_fmeasure, 
-            releases_bproj$time_fmeasure)
 
 releases_committers_bproj %>% summarize(min(time_precision.few), min(time_precision.many),
                                         min(range_precision.few), min(range_precision.many))
@@ -120,8 +112,8 @@ releases_committers_bproj_melted %>%
                               "time_precision.few" =  "few",
                               "range_precision.many" = "many",
                               "range_precision.few" =  "few")) +
-    facet_grid(rows = vars(strategy), scales = "free", 
-               labeller = as_labeller(c("range" = "range-based", "time" = "time-based"))) +
+    facet_grid(rows = vars(strategy), scales = "free",
+               labeller = as_labeller(c("time" = "time-based", "range" = "range-based"))) +
     ylab("") + ylim(0.75,1) +
     xlab("") + coord_flip() + 
     theme_bw(base_size = 14) +
@@ -145,104 +137,3 @@ releases_committers_bproj_melted %>%
     theme_bw(base_size = 14) +
     ggsave("../paper/figs/rq_factors_bp_collaborators_recall.png", width = 8, height = 2)
 
-
-releases_committers_bproj_melted %>%
-  filter(grepl("fmeasure", variable)) %>%
-  ggplot(aes(x=variable, y=value)) +
-    geom_boxplot() +
-    coord_flip() +
-    scale_x_discrete(labels=c("time_fmeasure.many" = "many",
-                              "time_fmeasure.few" =  "few",
-                              "range_fmeasure.many" = "many",
-                              "range_fmeasure.few" =  "few")) +
-    facet_grid(rows = vars(strategy), scales = "free") +
-    ylab("") + ylim(0,1) +
-    xlab("") + coord_flip() + 
-    theme_bw(base_size = 14) +
-    ggsave("../paper/figs/rq_pwork_col_bp_fmeasure.png", width = 8, height = 4)
-
-# H2_0 Test
-
-wilcox.test(releases_bproj$time_precision.few, releases_bproj$time_precision.many)
-cliff.delta(releases_bproj$time_precision.few, releases_bproj$time_precision.many)
-
-wilcox.test(releases_bproj$time_recall.few, releases_bproj$time_recall.many)
-cliff.delta(releases_bproj$time_recall.few, releases_bproj$time_recall.many)
-
-wilcox.test(releases_bproj$range_precision.few, releases_bproj$range_precision.many)
-#cliff.delta(releases_bproj$range_precision.few, releases_bproj$range_precision.many)
-
-wilcox.test(releases_bproj$range_recall.few, releases_bproj$range_recall.many)
-
-
-releases_bproj_melted <- releases_bproj %>% 
-  select(-merges_mean, -releases.total, -releases.few, -releases.many) %>%
-  melt() %>%
-  mutate(strategy = case_when(grepl("time", variable) ~ "time", TRUE ~ "range"),
-         group = case_when(grepl("few", variable) ~ "few", TRUE ~ "many"))
-  
-releases_bproj_melted %>%
-  filter(grepl("precision", variable)) %>%
-  ggplot(aes(x=variable, y=value)) +
-    geom_boxplot() +
-    coord_flip() +
-    facet_grid(rows = vars(strategy), scales = "free") +
-    theme_bw(base_size = 14)
-
-releases_bproj_melted %>%
-  filter(grepl("precision", variable), grepl("time", strategy)) %>%
-  ggplot(aes(x=variable, y=value)) +
-    ggtitle("Quantity of merges effect on time-based precision") +
-    geom_boxplot() +
-    scale_x_discrete(labels=c("time_precision.few" =  "few",
-                              "time_precision.many" = "many")) +
-    ylim(0,1) +
-    xlab("") + ylab("precision") +
-    theme_bw(base_size = 14) + coord_flip() +
-    ggsave("../paper/figs/rq_parallel_work_time_precision_bp.png", width = 8, height = 2)
-
-releases_bproj_melted %>%
-  filter(grepl("precision", variable), grepl("range", strategy)) %>%
-  ggplot(aes(x=variable, y=value)) +
-    ggtitle("Quantity of merges effect on range-based precision") +
-    geom_boxplot() +
-    scale_x_discrete(labels=c("range_precision.few" =  "few",
-                              "range_precision.many" = "many")) +
-    ylim(0,1) +
-    xlab("") + ylab("precision") +
-    theme_bw(base_size = 14) + coord_flip() +
-    ggsave("../paper/figs/rq_parallel_work_range_precision_bp.png", width = 8, height = 2)
-
-releases_bproj_melted %>% 
-  filter(grepl("recall", variable)) %>%
-  ggplot(aes(x=variable, y=value)) +
-  geom_boxplot() +
-  coord_flip() +
-  facet_grid(rows = vars(strategy), scales = "free") +
-  theme_bw(base_size = 14)
-
-  
-releases_bproj_melted %>%
-  filter(grepl("recall", variable), grepl("time", strategy)) %>%
-  ggplot(aes(x=variable, y=value)) +
-    ggtitle("Quantity of merges effect on time-based recall") +
-    geom_boxplot() +
-    scale_x_discrete(labels=c("time_recall.few" =  "few",
-                              "time_recall.many" = "many")) +
-    ylim(0,1) +
-    xlab("") + ylab("recall") +
-    theme_bw(base_size = 14) + coord_flip() +
-    ggsave("../paper/figs/rq_parallel_work_time_recall_bp.png", width = 8, height = 2)
-
-releases_bproj_melted %>%
-  filter(grepl("recall", variable), grepl("range", strategy)) %>%
-  ggplot(aes(x=variable, y=value)) +
-    ggtitle("Quantity of merges effect on range-based recall") +
-    geom_boxplot() +
-    scale_x_discrete(labels=c("range_recall.few" =  "few",
-                              "range_recall.many" = "many")) +
-    ylim(0,1) +
-    xlab("") + ylab("recall") +
-    theme_bw(base_size = 14) + coord_flip() +
-    ggsave("../paper/figs/rq_parallel_work_range_recall_bp.png", width = 8, height = 2)
-  
